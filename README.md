@@ -24,8 +24,7 @@ DB에는 사용자에 대한 정보와 현재 시간, 날씨, 위치에 대한 �
 ##### 2.1.3. 구조
 
 서버의 구성 기본적으로 APM(Apache, PHP, MYSQL) 구조로 개발한다. 따라서 해당되는 정보에 대한 분석은 관계형 데이터베이스의 연결을 통하여 분석하며, 보나쉘 음원 시스템과는 PHP 요청을 통해 제공 받는다. PHP 요청을 통해 받는 것이 수월하지 않는 다면 다른 응용프로그램을 이용하여 해당 서비스와 통신하고 DB에 추천 받은 음원을 업데이트 하도록 한다.
-
-
+![01](https://cloud.githubusercontent.com/assets/3794501/7100325/06157e3a-e056-11e4-8678-50a53e369290.png)
 
 #### 2.2. 안드로이드 App
 ##### 2.2.1 기능
@@ -39,6 +38,25 @@ DB에는 사용자에 대한 정보와 현재 시간, 날씨, 위치에 대한 �
 ##### 2.2.2 설명
 
 안드로이드 어플리케이션에는 사용자의 정보를 다양한 API로부터 확인하고 그 정보를 서버로 전달 시켜주는 역할을 한다. 그 예로 현재 날씨 정보에 대한 것을 가져오기 위해 해당되는 API를 연동하고, 음원을 틀은 시점에서 해당되는 정보를 서버에 전달하게 된다. 기타 다른 기능들도 대부분 서비스가 이미 수행되고 있는 공공 API나, 구글 API를 이용하여 이/를 구성한다.
+
+##### 2.2.3 구조
+
+안드로이드를 구현하기 위해서 총 4가지 API를 이용한다. 첫 번째로 구글 OAuth 연동을 하기 위하여 구글 OAuth API를 이용하여 이를 구현한다.
+
+Android OAuth API 
+https://developers.google.com/accounts/docs/OAuth2
+
+그리고 이와 동시에 Youtube API를 이용하며 해당 API는 구글 OAuth를 이용하여 연동을 할 경우에 구글 로그인이 되어있음으로 해당되는 API 사용하기가 쉽다.
+
+YouTube Data API
+https://developers.google.com/youtube/v3/code_samples/java#search_by_keyword
+
+또한 날씨정보를 이용하기 위하여 OpenWeather에서 제공하는 API를 이용하여 위도, 경도를 보내주게되면 해당되는 날씨 정보를 받아 올 수 있다.
+
+Open Weather API
+http://openweathermap.org/API
+
+![02-1](https://cloud.githubusercontent.com/assets/3794501/7100326/084c4a44-e056-11e4-92d9-da55c2d6a6df.png)
 
 ### 3. 일정
 
@@ -58,5 +76,6 @@ DB에는 사용자에 대한 정보와 현재 시간, 날씨, 위치에 대한 �
 5. 안드로이드 UI 구성
 
 
+![02-3](https://cloud.githubusercontent.com/assets/3794501/7100327/09f377a0-e056-11e4-9da8-0561de84d52c.png)
 
 
