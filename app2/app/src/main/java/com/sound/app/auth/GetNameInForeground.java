@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.sound.app;
+package com.sound.app.auth;
 
 import java.io.IOException;
 
@@ -28,7 +28,7 @@ import com.google.android.gms.auth.UserRecoverableAuthException;
  */
 public class GetNameInForeground extends AbstractGetNameTask {
 
-  public GetNameInForeground(HelloActivity activity, String email, String scope) {
+  public GetNameInForeground(AuthActivity activity, String email, String scope) {
       super(activity, email, scope);
   }
 

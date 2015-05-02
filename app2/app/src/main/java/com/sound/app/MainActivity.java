@@ -13,37 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.sound.app;
 
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
+import com.sound.app.auth.AuthActivity;
 
 public class MainActivity extends ListActivity {
 
     @Override
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
-        String[] items = getResources().getStringArray(R.array.main_activity_items);
-        this.setListAdapter(
-                new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, items));
+        Intent intent = new Intent(this, AuthActivity.class);
+        intent.putExtra(AuthActivity.TYPE_KEY, AuthActivity.Type.FOREGROUND.name());
+        startActivity(intent);
+        finish();
     }
 
-    @Override
-    protected void onListItemClick(ListView l, View v, int position, long id) {
-        // Highly coupled with the order of contents in main_activity_items
-        Intent intent = new Intent(this, HelloActivity.class);
-        if (position == 0) {
-            intent.putExtra(HelloActivity.TYPE_KEY, HelloActivity.Type.FOREGROUND.name());
-        } else if (position == 1) {
-            intent.putExtra(HelloActivity.TYPE_KEY, HelloActivity.Type.BACKGROUND.name());
-        } else if (position == 2) {
-            intent.putExtra(HelloActivity.TYPE_KEY, HelloActivity.Type.BACKGROUND_WITH_SYNC.name());
-        }
-        startActivity(intent);
-    }
 }

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.sound.app;
+package com.sound.app.auth;
 
 import com.google.android.gms.auth.GoogleAuthException;
 import com.google.android.gms.auth.GoogleAuthUtil;
@@ -30,7 +30,7 @@ public class GetNameInBackgroundWithSync extends AbstractGetNameTask {
   public static final String CONTACTS_AUTHORITY = "com.android.contacts";
 
   public GetNameInBackgroundWithSync(
-          HelloActivity activity, String email, String scope) {
+          AuthActivity activity, String email, String scope) {
       super(activity, email, scope);
   }
 

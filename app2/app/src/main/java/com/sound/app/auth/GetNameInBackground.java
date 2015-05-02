@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.sound.app;
+package com.sound.app.auth;
 
 import com.google.android.gms.auth.GoogleAuthException;
 import com.google.android.gms.auth.GoogleAuthUtil;
@@ -34,7 +34,7 @@ import java.io.IOException;
  */
 public class GetNameInBackground extends AbstractGetNameTask {
 
-  public GetNameInBackground(HelloActivity activity, String email, String scope) {
+  public GetNameInBackground(AuthActivity activity, String email, String scope) {
       super(activity, email, scope);
   }
 
@@ -63,8 +63,8 @@ public class GetNameInBackground extends AbstractGetNameTask {
   private Intent makeCallback(String accountName) {
       Intent intent = new Intent();
       intent.setAction("com.google.android.gms.auth.sample.helloauth.Callback");
-      intent.putExtra(HelloActivity.EXTRA_ACCOUNTNAME, accountName);
-      intent.putExtra(HelloActivity.TYPE_KEY, HelloActivity.Type.BACKGROUND.name());
+      intent.putExtra(AuthActivity.EXTRA_ACCOUNTNAME, accountName);
+      intent.putExtra(AuthActivity.TYPE_KEY, AuthActivity.Type.BACKGROUND.name());
       return intent;
   }
 
@@ -78,7 +78,7 @@ public class GetNameInBackground extends AbstractGetNameTask {
     @Override
     public void onReceive(Context context, Intent callback) {
         Bundle extras = callback.getExtras();
-        Intent intent = new Intent(context, HelloActivity.class);
+        Intent intent = new Intent(context, AuthActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.putExtras(extras);
         Log.i(TAG, "Received broadcast. Resurrecting activity");

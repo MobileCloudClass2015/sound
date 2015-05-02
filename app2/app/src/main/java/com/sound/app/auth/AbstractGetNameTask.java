@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.sound.app;
+package com.sound.app.auth;
 
 import com.google.android.gms.auth.GoogleAuthUtil;
 
@@ -36,13 +36,16 @@ import java.net.URL;
  */
 public abstract class AbstractGetNameTask extends AsyncTask<Void, Void, Void>{
     private static final String TAG = "TokenInfoTask";
-    private static final String NAME_KEY = "given_name";
-    protected HelloActivity mActivity;
+    private static final String ID_KEY = "id";
+    private static final String GENDER_KEY = "gender";
+    private static final String NAME_KEY = "name";
+    private static final String LOCALE_KEY = "locale";
 
+    protected AuthActivity mActivity;
     protected String mScope;
     protected String mEmail;
 
-    AbstractGetNameTask(HelloActivity activity, String email, String scope) {
+    AbstractGetNameTask(AuthActivity activity, String email, String scope) {
         this.mActivity = activity;
         this.mScope = scope;
         this.mEmail = email;
@@ -90,11 +93,11 @@ public abstract class AbstractGetNameTask extends AsyncTask<Void, Void, Void>{
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
         int sc = con.getResponseCode();
         if (sc == 200) {
-          InputStream is = con.getInputStream();
-          String name = getFirstName(readResponse(is));
-          mActivity.show("Hello " + name + "!");
-          is.close();
-          return;
+            InputStream is = con.getInputStream();
+            Auth auth = getAuth(readResponse(is));
+            mActivity.login(auth);
+            is.close();
+            return;
         } else if (sc == 401) {
             GoogleAuthUtil.invalidateToken(mActivity, token);
             onError("Server auth error, please try again.", null);
@@ -123,8 +126,9 @@ public abstract class AbstractGetNameTask extends AsyncTask<Void, Void, Void>{
      * Parses the response and returns the first name of the user.
      * @throws org.json.JSONException if the response is not JSON or if first name does not exist in response
      */
-    private String getFirstName(String jsonResponse) throws JSONException {
-      JSONObject profile = new JSONObject(jsonResponse);
-      return profile.getString(NAME_KEY);
+    private Auth getAuth(String jsonResponse) throws JSONException {
+        JSONObject profile = new JSONObject(jsonResponse);
+        Auth auth = new Auth(profile.getString(ID_KEY), profile.getString(NAME_KEY), profile.getString(GENDER_KEY), profile.getString(LOCALE_KEY));
+        return auth;
     }
 }

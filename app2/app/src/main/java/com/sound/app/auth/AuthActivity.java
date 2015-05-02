@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.sound.app;
+package com.sound.app.auth;
 
 import android.accounts.AccountManager;
 import android.app.Activity;
@@ -34,6 +34,8 @@ import com.google.android.gms.auth.GooglePlayServicesAvailabilityException;
 import com.google.android.gms.auth.UserRecoverableAuthException;
 import com.google.android.gms.common.AccountPicker;
 import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.sound.app.LoginActivity;
+import com.sound.app.R;
 
 /**
  * The TokenInfoActivity is a simple app that allows users to acquire, inspect and invalidate
@@ -42,7 +44,7 @@ import com.google.android.gms.common.GooglePlayServicesUtil;
  * In addition see implementations of {@link AbstractGetNameTask} for an illustration of how to use
  * the {@link GoogleAuthUtil}.
  */
-public class HelloActivity extends Activity {
+public class AuthActivity extends Activity {
     private static final String TAG = "PlayHelloActivity";
     private static final String SCOPE = "oauth2:https://www.googleapis.com/auth/userinfo.profile";
     public static final String EXTRA_ACCOUNTNAME = "extra_accountname";
@@ -69,10 +71,9 @@ public class HelloActivity extends Activity {
 
         Bundle extras = getIntent().getExtras();
         requestType = Type.valueOf(extras.getString(TYPE_KEY));
-        setTitle(getTitle() + " - " + requestType.name());
         if (extras.containsKey(EXTRA_ACCOUNTNAME)) {
             mEmail = extras.getString(EXTRA_ACCOUNTNAME);
-            getTask(HelloActivity.this, mEmail, SCOPE).execute();
+            getTask(AuthActivity.this, mEmail, SCOPE).execute();
         }
     }
 
@@ -124,7 +125,7 @@ public class HelloActivity extends Activity {
             pickUserAccount();
         } else {
             if (isDeviceOnline()) {
-                getTask(HelloActivity.this, mEmail, SCOPE).execute();
+                getTask(AuthActivity.this, mEmail, SCOPE).execute();
             } else {
                 Toast.makeText(this, "No network connection available", Toast.LENGTH_SHORT).show();
             }
@@ -164,6 +165,18 @@ public class HelloActivity extends Activity {
         });
     }
 
+    public void login(final Auth auth) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Intent intent = new Intent(AuthActivity.this, LoginActivity.class);
+                intent.putExtra("auth", auth);
+                startActivity(intent);
+                finish();
+            }
+        });
+    }
+
     /**
      * This method is a hook for background threads and async tasks that need to provide the
      * user a response UI when an exception occurs.
@@ -179,7 +192,7 @@ public class HelloActivity extends Activity {
                     int statusCode = ((GooglePlayServicesAvailabilityException)e)
                             .getConnectionStatusCode();
                     Dialog dialog = GooglePlayServicesUtil.getErrorDialog(statusCode,
-                            HelloActivity.this,
+                            AuthActivity.this,
                             REQUEST_CODE_RECOVER_FROM_PLAY_SERVICES_ERROR);
                     dialog.show();
                 } else if (e instanceof UserRecoverableAuthException) {
@@ -199,7 +212,7 @@ public class HelloActivity extends Activity {
      * background from a Foreground activity.
      */
     private AbstractGetNameTask getTask(
-            HelloActivity activity, String email, String scope) {
+            AuthActivity activity, String email, String scope) {
         switch(requestType) {
             case FOREGROUND:
                 return new GetNameInForeground(activity, email, scope);
