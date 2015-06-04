@@ -1,7 +1,5 @@
 package com.sound.server.request;
 
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
