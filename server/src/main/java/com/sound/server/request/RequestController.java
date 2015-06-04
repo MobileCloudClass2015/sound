@@ -2,6 +2,7 @@ package com.sound.server.request;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -11,6 +12,7 @@ import java.net.URL;
 /**
  * Created by Francis on 2015-06-04.
  */
+@Component
 public class RequestController {
     
     private static Logger logger = LoggerFactory.getLogger(RequestController.class);

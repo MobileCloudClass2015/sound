@@ -16,6 +16,7 @@ import java.util.Map;
  * Created by Francis on 2015-05-03.
  */
 @Controller
+@ResponseBody
 @RequestMapping(value="/auth")
 public class AuthController {
     
@@ -23,8 +24,7 @@ public class AuthController {
     
     @Autowired
     private AuthService authService;
-    
-    @ResponseBody
+
     @RequestMapping(value = "/isExist", method = RequestMethod.POST)
     public Map<String, Object> isExist(@RequestBody Map<String, Object> request){
         Map<String, Object> response = new HashMap<String, Object>();
@@ -33,7 +33,6 @@ public class AuthController {
         return response;
     }
     
-    @ResponseBody
     @RequestMapping(value = "/insert", method = RequestMethod.POST)
     public Map<String, Object> insert(@RequestBody Map<String, Object> request){
         
@@ -49,8 +48,6 @@ public class AuthController {
         return response;
     }
 
-
-    @ResponseBody
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     public Map<String, Object> delete(@RequestBody Map<String, Object> request){
         Map<String, Object> response = new HashMap<String, Object>();
@@ -60,7 +57,6 @@ public class AuthController {
         return response;
     }
     
-    @ResponseBody
     @RequestMapping(value = "/select", method = RequestMethod.POST)
     public Map<String, Object> select(@RequestBody Map<String,Object> request){
         Map<String, Object> response = new HashMap<String, Object>();
