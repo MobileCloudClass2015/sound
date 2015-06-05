@@ -23,16 +23,17 @@
         android:layout_height="150dp"
         android:id="@+id/imageView"
         android:layout_gravity="center_horizontal"
-        android:src="@drawable/main_image"/>
+        android:src="@drawable/music"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Improve your driving habit"
+        android:text="Your Best Choice Music"
         android:id="@+id/textView01"
         android:layout_gravity="center_horizontal"
         android:layout_alignBaseline="@+id/textView02"
-        android:layout_alignBottom="@+id/textView02" />
+        android:layout_alignBottom="@+id/textView02"
+        android:layout_marginTop="5dp"/>
 
     <RelativeLayout
         android:layout_width="50dp"
@@ -47,7 +48,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="ⓒCopyright Team.OilMap"
+        android:text="ⓒCopyright Team.Sound"
         android:id="@+id/textView02"
         android:layout_gravity="center_horizontal"
         android:layout_alignParentBottom="true"
