@@ -14,7 +14,8 @@
 
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -28,14 +29,6 @@
         <activity android:name=".LoginActivity" android:theme="@style/AppTheme">
         </activity>
 
-        <receiver
-            android:name=".auth.GetNameInBackground$CallbackReceiver"
-            android:exported="true" >
-            <intent-filter>
-                <action android:name="com.google.android.gms.auth.sample.helloauth.Callback" >
-                </action>
-            </intent-filter>
-        </receiver>
     </application>
 
 </manifest>
