@@ -16,10 +16,10 @@
 
 package com.sound.app.auth;
 
-import com.google.android.gms.auth.GoogleAuthUtil;
-
 import android.os.AsyncTask;
 import android.util.Log;
+
+import com.google.android.gms.auth.GoogleAuthUtil;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -34,14 +34,14 @@ import java.net.URL;
  * Display personalized greeting. This class contains boilerplate code to consume the token but
  * isn't integral to getting the tokens.
  */
-public abstract class AbstractGetNameTask extends AsyncTask<Void, Void, Void>{
+public abstract class AbstractGetNameTask extends AsyncTask<Void, Void, Void> {
     private static final String TAG = "TokenInfoTask";
     private static final String ID_KEY = "id";
     private static final String GENDER_KEY = "gender";
     private static final String NAME_KEY = "name";
     private static final String LOCALE_KEY = "locale";
-
     protected AuthActivity mActivity;
+
     protected String mScope;
     protected String mEmail;
 
@@ -54,6 +54,9 @@ public abstract class AbstractGetNameTask extends AsyncTask<Void, Void, Void>{
     @Override
     protected Void doInBackground(Void... params) {
       try {
+
+
+
         fetchNameFromProfileServer();
       } catch (IOException ex) {
         onError("Following Error occured, please try again. " + ex.getMessage(), ex);
@@ -94,10 +97,11 @@ public abstract class AbstractGetNameTask extends AsyncTask<Void, Void, Void>{
         int sc = con.getResponseCode();
         if (sc == 200) {
             InputStream is = con.getInputStream();
-            Auth auth = getAuth(readResponse(is));
-            mActivity.login(auth);
+
+            Auth auth = getInfo(readResponse(is));
+            mActivity.next(auth);
             is.close();
-            return;
+
         } else if (sc == 401) {
             GoogleAuthUtil.invalidateToken(mActivity, token);
             onError("Server auth error, please try again.", null);
@@ -126,9 +130,11 @@ public abstract class AbstractGetNameTask extends AsyncTask<Void, Void, Void>{
      * Parses the response and returns the first name of the user.
      * @throws org.json.JSONException if the response is not JSON or if first name does not exist in response
      */
-    private Auth getAuth(String jsonResponse) throws JSONException {
+    private Auth getInfo(String jsonResponse) throws JSONException {
         JSONObject profile = new JSONObject(jsonResponse);
-        Auth auth = new Auth(profile.getString(ID_KEY), profile.getString(NAME_KEY), profile.getString(GENDER_KEY), profile.getString(LOCALE_KEY));
+        Auth auth = new Auth(profile.getString(ID_KEY), "", profile.getString(NAME_KEY), profile.getString(GENDER_KEY), profile.getString(LOCALE_KEY));
+        Log.d(TAG, profile.toString());
+        Log.d(TAG, auth.toString());
         return auth;
     }
 }

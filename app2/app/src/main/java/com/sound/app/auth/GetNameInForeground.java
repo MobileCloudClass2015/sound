@@ -16,11 +16,11 @@
 
 package com.sound.app.auth;
 
-import java.io.IOException;
-
 import com.google.android.gms.auth.GoogleAuthException;
 import com.google.android.gms.auth.GoogleAuthUtil;
 import com.google.android.gms.auth.UserRecoverableAuthException;
+
+import java.io.IOException;
 
 /**
  * This example shows how to fetch tokens if you are creating a foreground task/activity and handle

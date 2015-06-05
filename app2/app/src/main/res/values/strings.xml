@@ -2,5 +2,6 @@
 
     <string name="app_name">Sound</string>
     <string name="greet_me">Google OAuth</string>
+    <string name="contextPath">http://52.25.197.127:8080</string>
 
 </resources>
