@@ -1,5 +1,6 @@
 package com.sound.app;
 
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -19,7 +20,7 @@ import com.sound.app.util.BackPressCloseHandler;
 import com.sound.app.weather.WeatherHttpClient;
 
 
-public class LoginActivity extends ActionBarActivity {
+public class LoginActivity extends Activity {
 
     private static final String TAG = "LoginActivity";
 

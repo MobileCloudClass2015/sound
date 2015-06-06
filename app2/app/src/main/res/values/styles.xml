@@ -4,8 +4,10 @@
 
 <resources xmlns:tools="http://schemas.android.com/tools" xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
+    <style name="AppBaseTheme" parent="android:Theme.Light">
+    </style>
+
+    <style name="AppTheme" parent="AppBaseTheme">
     </style>
 
     <style name="BottomSheet.StyleDialog" parent="BottomSheet.Dialog">
@@ -14,9 +16,9 @@
         <item name="android:textColorPrimary">#DDffffff</item>
         <item name="android:textColorSecondary">#8Affffff</item>
         <item name="android:textColorHint">#42ffffff</item>
+        <item name="bs_numColumns">3</item>
         <item name="bs_dialogBackground">@color/bs_dark_divider_color</item>
         <item name="bs_dividerColor">@android:color/transparent</item>
-        <item name="bs_numColumns">3</item>
     </style>
 
 
