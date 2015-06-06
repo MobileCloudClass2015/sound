@@ -12,7 +12,7 @@ import java.net.URL;
  */
 public class WeatherHttpClient {
 
-    private static String BASE_URL = "api.openweathermap.org/data/2.5/weather?";
+    private static String BASE_URL = "http://api.openweathermap.org/data/2.5/weather?";
     private static String IMG_URL = "http://openweathermap.org/img/w/";
 
     public String getWeatherData(Double latitude, Double longitude) {

@@ -77,8 +77,6 @@ public class LoginActivity extends Activity {
         Log.d(TAG, auth.toString());
         weather = (TextView) findViewById(R.id.weather);
 
-        new WeatherAsyncTask().execute();
-
         this.button = (Button) findViewById(R.id.button);
 
         this.button.setOnClickListener(new View.OnClickListener(){
@@ -102,6 +100,8 @@ public class LoginActivity extends Activity {
         this.gpsLocationInfo = new GpsLocationInfo(LoginActivity.this);
         if(!this.gpsLocationInfo.isGetLocation()) {
             this.gpsLocationInfo.showSettingsAlert();
+        }else{
+            new WeatherAsyncTask().execute();
         }
     }
 
