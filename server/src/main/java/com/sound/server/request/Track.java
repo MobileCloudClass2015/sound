@@ -3,7 +3,7 @@ package com.sound.server.request;
 /**
  * Created by Francis on 2015-06-06.
  */
-public class SearchReturn {
+public class Track {
 
     private String trackId;
     
@@ -12,15 +12,33 @@ public class SearchReturn {
     private String title;
     
     private String url;
+    
+    private Double score;
 
-    public SearchReturn() {
+    public Track() {
     }
 
-    public SearchReturn(String trackId, String artist, String title, String url) {
+    public Track(String trackId, String artist, String title, String url) {
         this.trackId = trackId;
         this.artist = artist;
         this.title = title;
         this.url = url;
+    }
+
+    public Track(String trackId, String artist, String title, String url, Double score) {
+        this.trackId = trackId;
+        this.artist = artist;
+        this.title = title;
+        this.url = url;
+        this.score = score;
+    }
+
+    public Double getScore() {
+        return score;
+    }
+
+    public void setScore(Double score) {
+        this.score = score;
     }
 
     public String getTrackId() {
@@ -57,11 +75,12 @@ public class SearchReturn {
 
     @Override
     public String toString() {
-        return "SearchReturn{" +
+        return "Track{" +
                 "trackId='" + trackId + '\'' +
                 ", artist='" + artist + '\'' +
                 ", title='" + title + '\'' +
                 ", url='" + url + '\'' +
+                ", score=" + score +
                 '}';
     }
 }

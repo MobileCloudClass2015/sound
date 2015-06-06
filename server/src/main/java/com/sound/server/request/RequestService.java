@@ -15,7 +15,8 @@ import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
-import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Francis on 2015-06-04.
@@ -61,27 +62,50 @@ public class RequestService {
         return text;
     }
     
-    public SearchReturn makeSearchTextResultToObject(String text){
+    public Track makeSearchTextResultToObject(String text){
         
         JsonParser parser = new JsonParser();
         JsonObject object = (JsonObject) parser.parse(text);
         JsonArray tracks = (JsonArray) object.getAsJsonArray("tracks");
         
-        SearchReturn searchReturn;
+        Track track;
         if(tracks.size() > 0){
-            JsonObject track = (JsonObject) tracks.get(0);
-            logger.debug(track.toString());
-            JsonPrimitive trackId = (JsonPrimitive) track.get("track_id");
-            JsonPrimitive artist = (JsonPrimitive) track.get("artist");
-            JsonPrimitive title = (JsonPrimitive) track.get("title");
-            JsonPrimitive url = (JsonPrimitive) track.get("url");
+            JsonObject trackObject = (JsonObject) tracks.get(0);
+            logger.debug(trackObject.toString());
+            JsonPrimitive trackId = (JsonPrimitive) trackObject.get("track_id");
+            JsonPrimitive artist = (JsonPrimitive) trackObject.get("artist");
+            JsonPrimitive title = (JsonPrimitive) trackObject.get("title");
+            JsonPrimitive url = (JsonPrimitive) trackObject.get("url");
         
-            searchReturn = new SearchReturn(trackId.toString(), artist.toString(), title.toString(), url.toString());
+            track = new Track(trackId.toString(), artist.toString(), title.toString(), url.toString());
         }else{
-            searchReturn = new SearchReturn();
+            track = new Track();
         }
 
-        return searchReturn;
+        return track;
+    }
+
+    public List<Track> makeRecommendTextResultToObject(String text){
+
+        JsonParser parser = new JsonParser();
+        JsonObject object = (JsonObject) parser.parse(text);
+        JsonArray tracks = (JsonArray) object.getAsJsonArray("tracks");
+
+        List<Track> list = new ArrayList<Track>();
+        for(int i=0; i<tracks.size(); i++){
+            JsonObject trackObject = (JsonObject) tracks.get(i);
+            logger.debug(trackObject.toString());
+            JsonPrimitive trackId = (JsonPrimitive) trackObject.get("track_id");
+            JsonPrimitive artist = (JsonPrimitive) trackObject.get("artist");
+            JsonPrimitive title = (JsonPrimitive) trackObject.get("title");
+            JsonPrimitive url = (JsonPrimitive) trackObject.get("url");
+            JsonPrimitive score = (JsonPrimitive) trackObject.get("score");
+
+            Track track = new Track(trackId.toString(), artist.toString(), title.toString(), url.toString(), score.getAsDouble());
+            list.add(track);
+        }
+
+        return list;
     }
     
     

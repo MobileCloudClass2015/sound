@@ -35,7 +35,7 @@
 				
 				$.postJSON(url, json, function(result){
 					$('#result').text(JSON.stringify(result));
-					$("#searchReturn").text(JSON.stringify(result.searchReturn));
+					$("#track").text(JSON.stringify(result.track));
 				});
 				
 			});
@@ -50,7 +50,7 @@
 	<button type="button" id="search">Search</button>
 
 	<span id="result"></span>
-	<span id="searchReturn"></span>
+	<span id="track"></span>
 	<br/>
 
 	<%-- Recommend --%>
@@ -65,6 +65,7 @@
 				
 				$.postJSON(url,json, function(result){
 					$('#recommendResult').text(JSON.stringify(result));
+					$("#tracks").text(JSON.stringify(result.tracks));
 				});
 			})
 			
@@ -77,6 +78,7 @@
 	<button type="button" id="recommendBtn">Recommend</button>
 	
 	<span id="recommendResult"></span>
+	<span id="tracks"></span>
 
 </body>
 </html>
