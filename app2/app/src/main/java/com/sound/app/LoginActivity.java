@@ -10,10 +10,13 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cocosw.bottomsheet.BottomSheet;
+import com.kure.musicplayer.activities.ActivityMenuMain;
 import com.sound.app.auth.Auth;
 import com.sound.app.bonacell.BonacellAsyncTask;
 import com.sound.app.util.BackPressCloseHandler;
@@ -30,6 +33,7 @@ public class LoginActivity extends Activity {
 
     private BottomSheet bottomSheet;
     private BackPressCloseHandler backPressCloseHandler;
+    private Button button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +75,16 @@ public class LoginActivity extends Activity {
 
         new WeatherAsyncTask().execute();
 
+        this.button = (Button) findViewById(R.id.button);
 
+        this.button.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this, ActivityMenuMain.class);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 
     @Override
