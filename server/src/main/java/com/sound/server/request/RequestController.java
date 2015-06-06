@@ -63,7 +63,7 @@ public class RequestController {
             tracks = new ArrayList<Track>();
         }
 
-        RecommendMap recommendMap = new RecommendMap(tracks);
+        RecommendMap recommendMap = new RecommendMap(tracks, track);
         logger.debug(recommendMap.toString());
         return recommendMap;
     }

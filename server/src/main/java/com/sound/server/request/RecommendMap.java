@@ -10,13 +10,24 @@ import java.util.List;
  */
 public class RecommendMap {
     
+    private Track track;
+    
     private List<Track> tracks;
 
     public RecommendMap() {
     }
 
-    public RecommendMap(List<Track> tracks) {
+    public RecommendMap(List<Track> tracks, Track track) {
         this.tracks = tracks;
+        this.track = track;
+    }
+
+    public Track getTrack() {
+        return track;
+    }
+
+    public void setTrack(Track track) {
+        this.track = track;
     }
 
     public List<Track> getTracks() {
@@ -30,7 +41,8 @@ public class RecommendMap {
     @Override
     public String toString() {
         return "RecommendMap{" +
-                "tracks=" + tracks +
+                "track=" + track +
+                ", tracks=" + tracks +
                 '}';
     }
 }
