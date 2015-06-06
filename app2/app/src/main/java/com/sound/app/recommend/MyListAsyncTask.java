@@ -67,8 +67,6 @@ public class MyListAsyncTask extends AsyncTask<Void, Void, MyPlayMap> {
         if(myPlayMap == null || !myPlayMap.getResult()){
             return;
         }
-
-
-        Log.d(TAG, myPlayMap.getSounds().toString());
+        Log.d(TAG, myPlayMap.toString());
     }
 }
