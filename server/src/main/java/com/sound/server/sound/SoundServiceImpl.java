@@ -14,14 +14,19 @@ import java.util.List;
 public class SoundServiceImpl extends SqlSessionDaoSupport implements SoundService{
     
     private static Logger logger = LoggerFactory.getLogger(SoundServiceImpl.class);
-
-
+    
     @Override
     public void insert(Sound sound) {
-        insertSound(sound);
-        getSqlSession().insert("sound.insertTimeStamp", sound);
+        Sound getSound = insertSound(sound);
+        logger.debug(getSound.toString());
+        getSqlSession().insert("sound.insertTimeStamp", getSound);
     }
-    
+
+    @Override
+    public List<Sound> selectMaxCountSound(String id) {
+        return getSqlSession().selectList("sound.selectMaxCountSound", id);
+    }
+
     private Sound insertSound(Sound sound){
         List<Sound> sounds = getSqlSession().selectList("sound.isExist", sound);
         if(sounds.size() > 0){

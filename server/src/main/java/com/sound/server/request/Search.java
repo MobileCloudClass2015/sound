@@ -21,7 +21,12 @@ public class Search {
 
     public Search() {
     }
-    
+
+    public Search(String artist, String title) {
+        this.artist = artist;
+        this.title = title;
+    }
+
     public JSONObject getJSONObject() {
         JSONObject parameter = new JSONObject();
         try {

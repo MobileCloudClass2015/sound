@@ -19,6 +19,7 @@ import com.cocosw.bottomsheet.BottomSheet;
 import com.kure.musicplayer.activities.ActivityMenuMain;
 import com.sound.app.auth.Auth;
 import com.sound.app.bonacell.BonacellAsyncTask;
+import com.sound.app.recommend.MyListAsyncTask;
 import com.sound.app.util.BackPressCloseHandler;
 import com.sound.app.weather.WeatherHttpClient;
 
@@ -34,6 +35,7 @@ public class LoginActivity extends Activity {
     private BottomSheet bottomSheet;
     private BackPressCloseHandler backPressCloseHandler;
     private Button button;
+    private Button myListBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +85,14 @@ public class LoginActivity extends Activity {
                 Intent intent = new Intent(LoginActivity.this, ActivityMenuMain.class);
                 startActivity(intent);
                 finish();
+            }
+        });
+
+        this.myListBtn = (Button) findViewById(R.id.myListBtn);
+        this.myListBtn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                new MyListAsyncTask(getApplicationContext()).execute();
             }
         });
     }

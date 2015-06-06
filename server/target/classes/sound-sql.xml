@@ -34,4 +34,26 @@
           `artist` = #{artist}
     </select>
     
+    <select id="selectMaxCountSound" parameterType="String" resultType="Sound">
+        SELECT
+            s.`pn`, s.`id`, s.`title`, s.`artist`
+        FROM
+            `sound` AS `s`,
+            (
+                SELECT
+                    `soundPn`, COUNT(`soundPn`) AS `count`
+                FROM
+                    `sound_time_stamp`
+                GROUP BY
+                    `soundPn`
+            ) AS `cs`
+        WHERE
+            s.`pn` = cs.`soundPn`
+        AND
+            s.`id` = #{id}
+        ORDER BY
+            cs.`count` DESC, s.`title`
+        LIMIT 0, 10
+    </select>
+    
 </mapper>
