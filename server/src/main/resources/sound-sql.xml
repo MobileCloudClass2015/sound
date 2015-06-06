@@ -8,6 +8,9 @@
           ( `id`, `title`, `artist`, )
         VALUES
           ( #{id}, #{title}, #{artist} )
+        <selectKey keyProperty="pn" resultType="Integer">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
     </insert>
     
     <insert id="insertTimeStamp" parameterType="Sound">
