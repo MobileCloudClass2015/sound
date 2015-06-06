@@ -11,10 +11,43 @@
 <html lang="kr">
 <head>
 	<title></title>
+	<script src="${cp}/resources/jquery-1.11.2.min.js"></script>
+	<script src="${cp}/resources/jquery.json.js"></script>
+
+	<script>
+		var contextPath = '<c:out value="${cp}"/>';
+		var realPath = '<c:out value="${rp}"/>';
+	</script>
 </head>
 <body>
 
-	<a href="${cp}/request/search">Request Search Post</a>
+	<script>
+		$(function(){
+			$('#search').on('click', function(){
+				var url = contextPath+'/request/search';
+				var json = {
+					artist : $('#artist').val(),
+					title : $('#title').val(),
+					start : $('#start').val(),
+					count : $('#count').val()
+				};
+				
+				$.postJSON(url, json, function(result){
+					$('#result').text(JSON.stringify(result));
+				});
+				
+			});
+		});
+	</script>
+
+	<input type="text" id="title" value=""/>
+	<input type="text" id="artist" value="GOD"/>
+	<input type="text" id="start" value="0"/>
+	<input type="text" id="count" value="10"/>
+	
+	<button type="button" id="search">Search</button>
+
+	<span id="result"></span>
 
 </body>
 </html>

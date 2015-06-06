@@ -27,10 +27,8 @@ public class RequestController {
     @RequestMapping(value = "/search", method = RequestMethod.POST)
     public Map<String, Object> requestSearch(@RequestBody Request request) throws Exception {
         Map<String, Object> response = new HashMap<String, Object>();
-        
         String line = requestService.sendPost(CONTEXT_PATH+"/music/search", request.getJSONObject());
         response.put("line", line);
-        
         return response;
     }
     
