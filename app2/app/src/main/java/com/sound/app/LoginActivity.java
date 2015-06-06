@@ -5,15 +5,12 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
-import android.support.v7.app.ActionBarActivity;
+
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.cocosw.bottomsheet.BottomSheet;
 import com.google.gson.JsonArray;
@@ -22,17 +19,12 @@ import com.google.gson.JsonParser;
 import com.google.gson.JsonPrimitive;
 import com.kure.musicplayer.activities.ActivityMenuMain;
 import com.sound.app.auth.Auth;
-import com.sound.app.bonacell.BonacellAsyncTask;
 import com.sound.app.recommend.MyListAsyncTask;
 import com.sound.app.util.BackPressCloseHandler;
 import com.sound.app.weather.GpsLocationInfo;
 import com.sound.app.weather.Weather;
+import com.sound.app.weather.WeatherAsyncTask;
 import com.sound.app.weather.WeatherHttpClient;
-
-import org.json.JSONObject;
-
-import java.util.Map;
-
 
 public class LoginActivity extends Activity {
 
@@ -66,7 +58,6 @@ public class LoginActivity extends Activity {
 
                         Intent idCheck = new Intent(LoginActivity.this, MainActivity.class);
                         startActivity(idCheck);
-                        LoginActivity.this.finish();
                         break;
 
                 }
@@ -110,7 +101,7 @@ public class LoginActivity extends Activity {
         if(!this.gpsLocationInfo.isGetLocation()) {
             this.gpsLocationInfo.showSettingsAlert();
         }else{
-            new WeatherAsyncTask().execute();
+            new WeatherAsyncTask(getApplicationContext(), this.gpsLocationInfo, this.weather).execute();
         }
     }
 
@@ -123,37 +114,6 @@ public class LoginActivity extends Activity {
     protected void onDestroy() {
         super.onDestroy();
         this.gpsLocationInfo.stopUsingGPS();
-    }
-
-    private class WeatherAsyncTask extends AsyncTask<Void, Void, Weather>{
-        @Override
-        protected Weather doInBackground(Void... params) {
-            WeatherHttpClient weatherHttpClient = new WeatherHttpClient();
-
-            String text = weatherHttpClient.getWeatherData(LoginActivity.this.gpsLocationInfo.getLatitude(), LoginActivity.this.gpsLocationInfo.getLongitude());
-            JsonParser parser = new JsonParser();
-            JsonObject object = (JsonObject) parser.parse(text);
-            JsonArray weathers = object.getAsJsonArray("weather");
-
-            if(weathers.size() > 0){
-                JsonObject weather = (JsonObject) weathers.get(0);
-                JsonPrimitive main = weather.getAsJsonPrimitive("main");
-                JsonPrimitive description = weather.getAsJsonPrimitive("description");
-                JsonPrimitive icon = weather.getAsJsonPrimitive("icon");
-                byte[] image = weatherHttpClient.getImage(icon.toString());
-                return new Weather(main.toString(), description.toString(), icon.toString());
-            }
-
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Weather getWeather) {
-            if(getWeather == null){
-                return;
-            }
-            weather.setText(getWeather.toString());
-        }
     }
 
 }

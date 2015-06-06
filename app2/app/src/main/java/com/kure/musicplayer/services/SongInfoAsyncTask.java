@@ -5,9 +5,17 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.google.gson.JsonPrimitive;
 import com.kure.musicplayer.model.Song;
 import com.sound.app.R;
 import com.sound.app.dto.Sound;
+import com.sound.app.weather.GpsLocationInfo;
+import com.sound.app.weather.Weather;
+import com.sound.app.weather.WeatherAsyncTask;
+import com.sound.app.weather.WeatherHttpClient;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.ResourceAccessException;
@@ -21,10 +29,21 @@ import java.util.Map;
  */
 public class SongInfoAsyncTask extends AsyncTask<Song, Void, Map<String, Object>> {
 
+    private static final String TAG = "SongInfoAsyncTask";
+
     private Context context;
+
+    private GpsLocationInfo gpsLocationInfo;
 
     public SongInfoAsyncTask(Context context) {
         this.context = context;
+    }
+
+    @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
+        // Check if GPS enabled
+        this.gpsLocationInfo = new GpsLocationInfo(context);
     }
 
     @Override
@@ -32,11 +51,32 @@ public class SongInfoAsyncTask extends AsyncTask<Song, Void, Map<String, Object>
         if(params[0] == null){
             return new HashMap<>();
         }
+        WeatherHttpClient weatherHttpClient = new WeatherHttpClient();
+
+        String text = weatherHttpClient.getWeatherData(this.gpsLocationInfo.getLatitude(), this.gpsLocationInfo.getLongitude());
+        Log.d(TAG, text);
+        JsonParser parser = new JsonParser();
+        JsonObject object = (JsonObject) parser.parse(text);
+        JsonArray weathers = object.getAsJsonArray("weather");
+
+        Weather getWeather;
+        if(weathers.size() > 0){
+            JsonObject weather = (JsonObject) weathers.get(0);
+            JsonPrimitive main = weather.getAsJsonPrimitive("main");
+            JsonPrimitive description = weather.getAsJsonPrimitive("description");
+            JsonPrimitive icon = weather.getAsJsonPrimitive("icon");
+            getWeather = new Weather(main.getAsString(), description.getAsString(), icon.getAsString());
+            Log.d(TAG, getWeather.toString());
+        }else{
+            getWeather = new Weather();
+        }
+
         SharedPreferences pref = context.getSharedPreferences("userInfo", 0);
         String id = pref.getString("id", "");
 
         Song song = params[0];
-        Sound sound = new Sound(id, song.getTitle(), song.getArtist());
+        Sound sound = new Sound(id, song.getTitle(), song.getArtist(), this.gpsLocationInfo.getLatitude(), this.gpsLocationInfo.getLongitude(), getWeather.getMain(), getWeather.getDescription());
+        Log.d(TAG, sound.toString());
         String url = context.getString(R.string.contextPath) + "/sound/timestamp";
 
         Boolean isSuccess = false;

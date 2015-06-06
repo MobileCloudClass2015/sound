@@ -26,6 +26,7 @@ import com.kure.musicplayer.external.RemoteControlHelper;
 import com.kure.musicplayer.kMP;
 import com.kure.musicplayer.model.Song;
 import com.sound.app.R;
+import com.sound.app.weather.GpsLocationInfo;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -238,7 +239,6 @@ public class ServicePlayMusic extends Service
      */
     AudioManager audioManager;
 
-
 	/**
 	 * Whenever we're created, reset the MusicPlayer and
 	 * start the MusicScrobblerService.
@@ -272,6 +272,7 @@ public class ServicePlayMusic extends Service
 		registerReceiver(headsetBroadcastReceiver, headsetFilter);
 
 		Log.w(TAG, "onCreate");
+
 	}
 
 	/**

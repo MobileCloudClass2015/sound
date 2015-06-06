@@ -13,6 +13,14 @@ public class Sound {
     
     private String artist;
     
+    private Double latitude;
+    
+    private Double longitude;
+    
+    private String weatherMain;
+    
+    private String weatherDescription;
+    
     private String timeStamp;
 
     public Sound() {
@@ -59,6 +67,38 @@ public class Sound {
         this.timeStamp = timeStamp;
     }
 
+    public Double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
+    }
+
+    public Double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
+    }
+
+    public String getWeatherMain() {
+        return weatherMain;
+    }
+
+    public void setWeatherMain(String weatherMain) {
+        this.weatherMain = weatherMain;
+    }
+
+    public String getWeatherDescription() {
+        return weatherDescription;
+    }
+
+    public void setWeatherDescription(String weatherDescription) {
+        this.weatherDescription = weatherDescription;
+    }
+
     @Override
     public String toString() {
         return "Sound{" +
@@ -66,6 +106,10 @@ public class Sound {
                 ", id='" + id + '\'' +
                 ", title='" + title + '\'' +
                 ", artist='" + artist + '\'' +
+                ", latitude=" + latitude +
+                ", longitude=" + longitude +
+                ", weatherMain='" + weatherMain + '\'' +
+                ", weatherDescription='" + weatherDescription + '\'' +
                 ", timeStamp='" + timeStamp + '\'' +
                 '}';
     }

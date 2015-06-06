@@ -17,9 +17,9 @@ public class SoundServiceImpl extends SqlSessionDaoSupport implements SoundServi
     
     @Override
     public void insert(Sound sound) {
-        Sound getSound = insertSound(sound);
-        logger.debug(getSound.toString());
-        getSqlSession().insert("sound.insertTimeStamp", getSound);
+        insertSound(sound);
+        logger.debug(sound.toString());
+        getSqlSession().insert("sound.insertTimeStamp", sound);
     }
 
     @Override
@@ -27,13 +27,14 @@ public class SoundServiceImpl extends SqlSessionDaoSupport implements SoundServi
         return getSqlSession().selectList("sound.selectMaxCountSound", id);
     }
 
-    private Sound insertSound(Sound sound){
+    private void insertSound(Sound sound){
         List<Sound> sounds = getSqlSession().selectList("sound.isExist", sound);
         if(sounds.size() > 0){
-            return sounds.get(0);
+            Sound getSound = sounds.get(0);
+            sound.setPn(getSound.getPn());
+            return;
         }
         
         getSqlSession().insert("sound.insert", sound);
-        return sound;
     }
 }

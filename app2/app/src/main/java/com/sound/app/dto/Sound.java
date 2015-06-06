@@ -13,15 +13,28 @@ public class Sound {
     
     private String artist;
     
+    private Double latitude;
+    
+    private Double longitude;
+    
+    private String weatherMain;
+    
+    private String weatherDescription;
+    
     private String timeStamp;
 
     public Sound() {
+
     }
 
-    public Sound(String id, String title, String artist) {
+    public Sound(String id, String title, String artist, Double latitude, Double longitude, String weatherMain, String weatherDescription) {
         this.id = id;
         this.title = title;
         this.artist = artist;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.weatherMain = weatherMain;
+        this.weatherDescription = weatherDescription;
     }
 
     public String getId() {
@@ -64,6 +77,38 @@ public class Sound {
         this.timeStamp = timeStamp;
     }
 
+    public Double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
+    }
+
+    public Double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
+    }
+
+    public String getWeatherMain() {
+        return weatherMain;
+    }
+
+    public void setWeatherMain(String weatherMain) {
+        this.weatherMain = weatherMain;
+    }
+
+    public String getWeatherDescription() {
+        return weatherDescription;
+    }
+
+    public void setWeatherDescription(String weatherDescription) {
+        this.weatherDescription = weatherDescription;
+    }
+
     @Override
     public String toString() {
         return "Sound{" +
@@ -71,6 +116,10 @@ public class Sound {
                 ", id='" + id + '\'' +
                 ", title='" + title + '\'' +
                 ", artist='" + artist + '\'' +
+                ", latitude=" + latitude +
+                ", longitude=" + longitude +
+                ", weatherMain='" + weatherMain + '\'' +
+                ", weatherDescription='" + weatherDescription + '\'' +
                 ", timeStamp='" + timeStamp + '\'' +
                 '}';
     }

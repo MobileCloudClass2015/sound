@@ -16,9 +16,9 @@
     <insert id="insertTimeStamp" parameterType="Sound">
         INSERT INTO
           `sound_time_stamp`
-          ( `soundPn`, `timeStamp`)
+          ( `soundPn`, `timeStamp`, `latitude`, `longitude`, `weatherMain`, `weatherDescription`)
         VALUES
-          ( #{pn}, SYSDATE() )
+          ( #{pn}, SYSDATE(), #{latitude}, #{longitude}, #{weatherMain}, #{weatherDescription} )
     </insert>
     
     <select id="isExist" parameterType="Sound" resultType="Sound">
