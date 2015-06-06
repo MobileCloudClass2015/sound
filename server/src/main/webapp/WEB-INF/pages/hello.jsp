@@ -21,10 +21,11 @@
 </head>
 <body>
 
+	<%-- Search --%>
 	<script>
 		$(function(){
 			$('#search').on('click', function(){
-				var url = contextPath+'/request/search';
+				var url = contextPath+'/search/search';
 				var json = {
 					artist : $('#artist').val(),
 					title : $('#title').val(),
@@ -48,6 +49,31 @@
 	<button type="button" id="search">Search</button>
 
 	<span id="result"></span>
+
+	<%-- Recommend --%>
+	<script>
+		$(function(){
+			$('#recommendBtn').on('click', function(){
+				var url = contextPath + '/request/recommend'
+				var json = {
+					trackId : $('#trackId').val(),
+					count : $('#recommendCount').val()
+				};
+				
+				$.postJSON(url,json, function(result){
+					$('#recommendResult').text(JSON.stringify(result));
+				});
+			})
+			
+		});
+	</script>
+
+	<input type="text" id="trackId" value="msNbcnXS38fP4HYI"/>
+	<input type="text" id="recommendCount" value="10"/>
+	
+	<button type="button" id="recommendBtn">Recommend</button>
+	
+	<span id="recommendResult"></span>
 
 </body>
 </html>

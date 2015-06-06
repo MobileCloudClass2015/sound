@@ -6,7 +6,7 @@ import org.json.JSONObject;
 /**
  * Created by Francis on 2015-06-06.
  */
-public class Request {
+public class Search {
     
     private String artist;
     
@@ -16,7 +16,7 @@ public class Request {
     
     private Integer count;
 
-    public Request() {
+    public Search() {
     }
     
     public JSONObject getJSONObject() {
@@ -67,7 +67,7 @@ public class Request {
 
     @Override
     public String toString() {
-        return "Request{" +
+        return "Search{" +
                 "artist='" + artist + '\'' +
                 ", title='" + title + '\'' +
                 ", start=" + start +

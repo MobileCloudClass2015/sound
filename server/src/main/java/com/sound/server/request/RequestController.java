@@ -25,9 +25,17 @@ public class RequestController {
     private RequestService requestService;
 
     @RequestMapping(value = "/search", method = RequestMethod.POST)
-    public Map<String, Object> requestSearch(@RequestBody Request request) throws Exception {
+    public Map<String, Object> requestSearch(@RequestBody Search search) throws Exception {
         Map<String, Object> response = new HashMap<String, Object>();
-        String line = requestService.sendPost(CONTEXT_PATH+"/music/search", request.getJSONObject());
+        String line = requestService.sendPost(CONTEXT_PATH+"/music/search", search.getJSONObject());
+        response.put("line", line);
+        return response;
+    }
+
+    @RequestMapping(value = "/recommend", method = RequestMethod.POST)
+    public Map<String, Object> requestRecommend(@RequestBody Recommend recommend) throws Exception {
+        Map<String, Object> response = new HashMap<String, Object>();
+        String line = requestService.sendPost(CONTEXT_PATH+"/music/recommend", recommend.getJSONObject());
         response.put("line", line);
         return response;
     }
