@@ -10,11 +10,17 @@
 <!DOCTYPE html>
 <html lang="kr">
 <head>
-	<title></title>
+    <title></title>
 </head>
 <body>
-
-	<a href="${cp}/request/search">Request Search Post</a>
+<c:choose>
+  <c:when test="${line ne null}">
+    <c:out value="${line}"/>
+  </c:when>
+  <c:otherwise>
+    데이터 존재하지 않습니다.
+  </c:otherwise>
+</c:choose>
 
 </body>
 </html>
