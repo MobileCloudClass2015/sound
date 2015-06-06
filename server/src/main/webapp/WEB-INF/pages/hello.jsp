@@ -25,7 +25,7 @@
 	<script>
 		$(function(){
 			$('#search').on('click', function(){
-				var url = contextPath+'/search/search';
+				var url = contextPath+'/request/search';
 				var json = {
 					artist : $('#artist').val(),
 					title : $('#title').val(),
@@ -35,6 +35,7 @@
 				
 				$.postJSON(url, json, function(result){
 					$('#result').text(JSON.stringify(result));
+					$("#searchReturn").text(JSON.stringify(result.searchReturn));
 				});
 				
 			});
@@ -49,6 +50,8 @@
 	<button type="button" id="search">Search</button>
 
 	<span id="result"></span>
+	<span id="searchReturn"></span>
+	<br/>
 
 	<%-- Recommend --%>
 	<script>

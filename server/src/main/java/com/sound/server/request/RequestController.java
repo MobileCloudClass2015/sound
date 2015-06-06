@@ -29,6 +29,7 @@ public class RequestController {
         Map<String, Object> response = new HashMap<String, Object>();
         String line = requestService.sendPost(CONTEXT_PATH+"/music/search", search.getJSONObject());
         response.put("line", line);
+        response.put("searchReturn", requestService.makeSearchTextResultToObject(line));
         return response;
     }
 

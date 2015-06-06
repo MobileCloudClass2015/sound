@@ -3,6 +3,9 @@ package com.sound.server.request;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+
 /**
  * Created by Francis on 2015-06-06.
  */
@@ -22,11 +25,13 @@ public class Search {
     public JSONObject getJSONObject() {
         JSONObject parameter = new JSONObject();
         try {
-            parameter.put("artist", this.artist == null ? "GOD" : this.artist);
-            parameter.put("title", this.title == null ? "" : this.title);
+            parameter.put("artist", this.artist == null ? "GOD" : URLEncoder.encode(this.artist, "utf-8"));
+            parameter.put("title", this.title == null ? "" : URLEncoder.encode(this.title, "utf-8"));
             parameter.put("start", this.start == null ? 0 : this.start);
             parameter.put("count", this.count == null? 10 : this.count);
         } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
         return parameter;
