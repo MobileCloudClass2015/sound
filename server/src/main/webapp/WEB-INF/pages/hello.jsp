@@ -79,6 +79,34 @@
 	
 	<span id="recommendResult"></span>
 	<span id="tracks"></span>
+	<br/>
+	
+	<%-- RecommednMap --%>
+	<%-- Search --%>
+	<script>
+		$(function(){
+			$('#recommendSearch').on('click', function(){
+				var url = contextPath+'/recommendList';
+				var json = {
+					artist : $('#recommendArtist').val(),
+					title : $('#recommendTitle').val()
+				};
+
+				$.postJSON(url, json, function(result){
+					$('#recommendListResult').text(JSON.stringify(result));
+				});
+
+			});
+		});
+	</script>
+
+	<input type="text" id="recommendTitle" value="거짓말"/>
+	<input type="text" id="recommendArtist" value="GOD"/>
+
+	<button type="button" id="recommendSearch">Recommend List</button>
+
+	<span id="recommendListResult"></span>
+	<br/>
 
 </body>
 </html>
