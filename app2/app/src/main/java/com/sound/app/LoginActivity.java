@@ -21,6 +21,7 @@ import com.sound.app.auth.Auth;
 import com.sound.app.bonacell.BonacellAsyncTask;
 import com.sound.app.recommend.MyListAsyncTask;
 import com.sound.app.util.BackPressCloseHandler;
+import com.sound.app.weather.GpsLocationInfo;
 import com.sound.app.weather.WeatherHttpClient;
 
 
@@ -36,6 +37,7 @@ public class LoginActivity extends Activity {
     private BackPressCloseHandler backPressCloseHandler;
     private Button button;
     private Button myListBtn;
+    private GpsLocationInfo gpsLocationInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,6 +97,12 @@ public class LoginActivity extends Activity {
                 new MyListAsyncTask(getApplicationContext()).execute();
             }
         });
+
+        // Check if GPS enabled
+        this.gpsLocationInfo = new GpsLocationInfo(LoginActivity.this);
+        if(!this.gpsLocationInfo.isGetLocation()) {
+            this.gpsLocationInfo.showSettingsAlert();
+        }
     }
 
     @Override
@@ -102,12 +110,17 @@ public class LoginActivity extends Activity {
         this.backPressCloseHandler.onBackPressed(this.bottomSheet);
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        this.gpsLocationInfo.stopUsingGPS();
+    }
 
     private class WeatherAsyncTask extends AsyncTask<Void, Void, String>{
         @Override
         protected String doInBackground(Void... params) {
             WeatherHttpClient weatherHttpClient = new WeatherHttpClient();
-            String info = weatherHttpClient.getWeatherData("London,uk");
+            String info = weatherHttpClient.getWeatherData(LoginActivity.this.gpsLocationInfo.getLatitude(), LoginActivity.this.gpsLocationInfo.getLongitude());
             return info;
         }
 
