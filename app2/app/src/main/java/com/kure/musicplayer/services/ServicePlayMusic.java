@@ -919,6 +919,10 @@ public class ServicePlayMusic extends Service
 		Song songToPlay = songs.get(currentSongPosition);
 
 		currentSong = songToPlay;
+        if(currentSong != null) {
+            new SongInfoAsyncTask(getApplicationContext()).execute(currentSong);
+        }
+        Log.d("PlayerSong", currentSong.toString());
 
 		// Append the external URI with our songs'
 		Uri songToPlayURI = ContentUris.withAppendedId

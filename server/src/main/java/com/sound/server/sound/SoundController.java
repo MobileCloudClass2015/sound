@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Created by Francis on 2015-06-04.
  */
@@ -22,10 +25,12 @@ public class SoundController {
     @Autowired
     private SoundService soundService;
     
-    @RequestMapping(value = "/timestamp", method = RequestMethod.GET)
-    public Boolean timestamp(@RequestBody Sound sound){
+    @RequestMapping(value = "/timestamp", method = RequestMethod.POST)
+    public Map<String, Object> timestamp(@RequestBody Sound sound){
+        Map<String, Object> response = new HashMap<String, Object>();
         soundService.insert(sound);
-        return false;
+        response.put("result", true);
+        return response;
     }
     
 }

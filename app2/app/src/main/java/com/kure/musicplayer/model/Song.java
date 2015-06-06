@@ -118,4 +118,19 @@ public class Song {
 	public long getDurationMinutes() {
 		return getDurationSeconds() / 60;
 	}
+
+    @Override
+    public String toString() {
+        return "Song{" +
+                "id=" + id +
+                ", filePath='" + filePath + '\'' +
+                ", title='" + title + '\'' +
+                ", artist='" + artist + '\'' +
+                ", album='" + album + '\'' +
+                ", year=" + year +
+                ", genre='" + genre + '\'' +
+                ", track_no=" + track_no +
+                ", duration_ms=" + duration_ms +
+                '}';
+    }
 }

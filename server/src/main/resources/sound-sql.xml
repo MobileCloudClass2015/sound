@@ -5,7 +5,7 @@
     <insert id="insert" parameterType="Sound">
         INSERT INTO
           `sound`
-          ( `id`, `title`, `artist`, )
+          ( `id`, `title`, `artist` )
         VALUES
           ( #{id}, #{title}, #{artist} )
         <selectKey keyProperty="pn" resultType="Integer">
@@ -21,7 +21,7 @@
           ( #{pn}, SYSDATE() )
     </insert>
     
-    <select id="isExist" parameterType="Sound">
+    <select id="isExist" parameterType="Sound" resultType="Sound">
         SELECT
           `pn`, `id`, `title`, `artist`
         FROM
