@@ -10,6 +10,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.cocosw.bottomsheet.BottomSheet;
@@ -17,8 +18,10 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonPrimitive;
+import com.sound.app.util.BackPressCloseHandler;
 import com.sound.app.weather.GpsLocationInfo;
 import com.sound.app.weather.Weather;
+import com.sound.app.weather.WeatherAsyncTask;
 import com.sound.app.weather.WeatherHttpClient;
 import com.sound.app.youtube.VideoListDemoActivity;
 
@@ -28,6 +31,9 @@ public class LoginActivity extends Activity {
 
     private BottomSheet bottomSheet;
     private Button youtubeBtn;
+    private GpsLocationInfo gpsLocationInfo;
+    private BackPressCloseHandler backPressCloseHandler;
+    private ImageView imgview;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +58,7 @@ public class LoginActivity extends Activity {
                 }
             }
         }).build();
+        this.backPressCloseHandler = new BackPressCloseHandler(this);
 
         this.youtubeBtn=(Button)findViewById(R.id.youtubeBtn);
         this.youtubeBtn.setOnClickListener(new View.OnClickListener() {
@@ -62,55 +69,23 @@ public class LoginActivity extends Activity {
                 finish();
             }
         });
+
+        this.gpsLocationInfo = new GpsLocationInfo(LoginActivity.this);
+        if(!this.gpsLocationInfo.isGetLocation()){
+            this.gpsLocationInfo.showSettingsAlert();
+        }
+        imgview=(ImageView)findViewById(R.id.weatherimg);
+        new WeatherAsyncTask(getApplicationContext(), this.gpsLocationInfo, this.imgview).execute();
     }
 
-    public class WeatherAsyncTask extends AsyncTask<Void, Void, Weather> {
-
-        private GpsLocationInfo gpsLocationInfo;
-        private Context context;
-        private TextView textView;
-
-        public WeatherAsyncTask(Context context, GpsLocationInfo gpsLocationInfo, TextView textView) {
-            this.gpsLocationInfo = gpsLocationInfo;
-            this.context = context;
-            this.textView = textView;
-        }
-
-        @Override
-        protected Weather doInBackground(Void... params) {
-            WeatherHttpClient weatherHttpClient = new WeatherHttpClient();
-
-            String text = weatherHttpClient.getWeatherData(this.gpsLocationInfo.getLatitude(), this.gpsLocationInfo.getLongitude());
-            JsonParser parser = new JsonParser();
-            JsonObject object = (JsonObject) parser.parse(text);
-            JsonArray weathers = object.getAsJsonArray("weather");
-
-            if(weathers.size() > 0){
-                JsonObject weather = (JsonObject) weathers.get(0);
-                JsonPrimitive main = weather.getAsJsonPrimitive("main");
-                JsonPrimitive description = weather.getAsJsonPrimitive("description");
-                JsonPrimitive icon = weather.getAsJsonPrimitive("icon");
-                byte[] image = weatherHttpClient.getImage(icon.toString());
-                return new Weather(main.toString(), description.toString(), icon.toString());
-            }
-
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Weather getWeather) {
-            if(getWeather == null){
-                return;
-            }
-
-            if(textView != null) {
-                this.textView.setText(getWeather.toString());
-            }
-        }
-    }
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        this.gpsLocationInfo.stopUsingGPS();
     }
 
+    @Override
+    public void onBackPressed() {
+        this.backPressCloseHandler.onBackPressed(this.bottomSheet);
+    }
 }
