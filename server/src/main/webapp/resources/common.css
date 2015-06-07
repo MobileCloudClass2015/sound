@@ -19,10 +19,18 @@
 .button_blue:hover{ background: #2f5168;}
 
 /* common navigation */
-.common_navigation{ position: fixed;  width: 200px; height: 100%; background: #2f5168;}
+.common_navigation{ position: fixed;  width: 200px; height: 100%; background: #2f5168; z-index: 10;}
 .common_navigation>ul{ width: 100%; height: 40px;}
 .common_navigation>ul>li{ width: 180px; height: 30px; padding: 5px 10px; text-align: left;}
 .common_navigation>ul>li>a{ width: 180px; height: 30px; display: block; line-height: 30px; color: #fff; font-weight: bold; font-size: 75%;}
 .common_navigation>ul>li>a:hover{ color: #ffb971;}
 .common_navigation>ul>li>a.active{ color: #ffb971;}
 
+/* common section*/
+.common_section_wrap{ position: fixed; width: 100%; height: 100%; z-index: 5;}
+.common_section{ margin: 0 0 0 200px; overflow-y: scroll; background: #fff; min-height: 100%; max-height: 100%; }
+
+.common_header{ padding: 10px 15px; }
+.common_header>h1{ font-size: 100%; border-left: 3px solid #5696bc;  text-indent: 10px;}
+
+.common_article{ padding: 10px 15px; }

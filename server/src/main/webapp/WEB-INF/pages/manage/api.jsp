@@ -2,95 +2,108 @@
 <%@ include file="../../layout/header.jspf" %>
 <%@ include file="../../layout/nav.jspf" %>
 
-<section>
+<section class="common_section_wrap">
 
-	<%-- Search --%>
-	<script>
-		$(function(){
-			$('#search').on('click', function(){
-				var url = contextPath+'/request/search';
-				var json = {
-					artist : $('#artist').val(),
-					title : $('#title').val(),
-					start : $('#start').val(),
-					count : $('#count').val()
-				};
-				
-				$.postJSON(url, json, function(result){
-					$('#result').text(JSON.stringify(result));
-					$("#track").text(JSON.stringify(result.track));
+	<section class="common_section">
+
+		<header class="common_header">
+			<h1>Bonacell API Test</h1>
+		</header>
+
+		<article class="common_article">
+			<%-- Search --%>
+			<script>
+				$(function(){
+					$('#search').on('click', function(){
+						var url = contextPath+'/request/search';
+						var json = {
+							artist : $('#artist').val(),
+							title : $('#title').val(),
+							start : $('#start').val(),
+							count : $('#count').val()
+						};
+
+						$.postJSON(url, json, function(result){
+							$('#result').text(JSON.stringify(result));
+							$("#track").text(JSON.stringify(result.track));
+						});
+
+					});
 				});
-				
-			});
-		});
-	</script>
+			</script>
 
-	<input type="text" id="title" value=""/>
-	<input type="text" id="artist" value="GOD"/>
-	<input type="text" id="start" value="0"/>
-	<input type="text" id="count" value="10"/>
-	
-	<button type="button" id="search">Search</button>
+			<input type="text" id="title" value=""/>
+			<input type="text" id="artist" value="GOD"/>
+			<input type="text" id="start" value="0"/>
+			<input type="text" id="count" value="10"/>
 
-	<span id="result"></span>
-	<span id="track"></span>
-	<br/>
+			<button type="button" id="search">Search</button>
 
-	<%-- Recommend --%>
-	<script>
-		$(function(){
-			$('#recommendBtn').on('click', function(){
-				var url = contextPath + '/request/recommend'
-				var json = {
-					trackId : $('#trackId').val(),
-					count : $('#recommendCount').val()
-				};
-				
-				$.postJSON(url,json, function(result){
-					$('#recommendResult').text(JSON.stringify(result));
-					$("#tracks").text(JSON.stringify(result.tracks));
-				});
-			})
+			<span id="result"></span>
+			<span id="track"></span>
 			
-		});
-	</script>
+		</article>
 
-	<input type="text" id="trackId" value="msNbcnXS38fP4HYI"/>
-	<input type="text" id="recommendCount" value="10"/>
+		<article class="common_article">
+			<%-- Recommend --%>
+			<script>
+				$(function(){
+					$('#recommendBtn').on('click', function(){
+						var url = contextPath + '/request/recommend'
+						var json = {
+							trackId : $('#trackId').val(),
+							count : $('#recommendCount').val()
+						};
 	
-	<button type="button" id="recommendBtn">Recommend</button>
+						$.postJSON(url,json, function(result){
+							$('#recommendResult').text(JSON.stringify(result));
+							$("#tracks").text(JSON.stringify(result.tracks));
+						});
+					})
 	
-	<span id="recommendResult"></span>
-	<span id="tracks"></span>
-	<br/>
-	
-	<%-- RecommednMap --%>
-	<%-- Search --%>
-	<script>
-		$(function(){
-			$('#recommendSearch').on('click', function(){
-				var url = contextPath+'/recommendList';
-				var json = {
-					artist : $('#recommendArtist').val(),
-					title : $('#recommendTitle').val()
-				};
-
-				$.postJSON(url, json, function(result){
-					$('#recommendListResult').text(JSON.stringify(result));
 				});
+			</script>
+	
+			<input type="text" id="trackId" value="msNbcnXS38fP4HYI"/>
+			<input type="text" id="recommendCount" value="10"/>
+	
+			<button type="button" id="recommendBtn">Recommend</button>
+	
+			<span id="recommendResult"></span>
+			<span id="tracks"></span>
+		</article>
+		
+		<%-- RecommednMap --%>
+		<%-- Search --%>
+		<article class="common_article">
+			<script>
+				$(function(){
+					$('#recommendSearch').on('click', function(){
+						var url = contextPath+'/recommendList';
+						var json = {
+							artist : $('#recommendArtist').val(),
+							title : $('#recommendTitle').val()
+						};
 
-			});
-		});
-	</script>
+						$.postJSON(url, json, function(result){
+							$('#recommendListResult').text(JSON.stringify(result));
+						});
 
-	<input type="text" id="recommendTitle" value="거짓말"/>
-	<input type="text" id="recommendArtist" value="GOD"/>
+					});
+				});
+			</script>
 
-	<button type="button" id="recommendSearch">Recommend List</button>
+			<input type="text" id="recommendTitle" value="거짓말"/>
+			<input type="text" id="recommendArtist" value="GOD"/>
 
-	<span id="recommendListResult"></span>
-	<br/>
+			<button type="button" id="recommendSearch">Recommend List</button>
+
+			<span id="recommendListResult"></span>
+		</article>
+		
+	</section>
 
 </section>
+
 
 <%@ include file="../../layout/footer.jspf" %>
