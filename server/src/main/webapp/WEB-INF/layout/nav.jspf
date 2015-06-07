@@ -1,17 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
 
-<nav>
+<nav class="common_navigation">
     
     <ul>
         <li>
-            <a href="${cp}/dashboard">Dashboard</a>
+            <a href="${cp}/dashboard" class="${fn:contains(rp, '/dashboard') ? 'active' : ''}" >Dashboard</a>
         </li>
         <li>
-            <a href="${cp}/manage/api">Bonacell API Test</a>
+            <a href="${cp}/manage/api" class="${fn:contains(rp, '/api') ? 'active' : ''}" >Bonacell API Test</a>
         </li>
         <lI>
-            <a href="${cp}/manage/auth">Auth Manager</a>
+            <a href="${cp}/manage/auth" class="${fn:contains(rp, '/auth') ? 'active' : ''}">Auth Manager</a>
         </lI>
         <li>
             <a href="${cp}/signOut">Logout</a>

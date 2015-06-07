@@ -25,6 +25,6 @@ public class AdminController {
     
     @RequestMapping(value = "/auth", method = RequestMethod.GET)
     public String authManagePage(Model model){
-        return "auth";
+        return "manage/auth";
     }
 }
