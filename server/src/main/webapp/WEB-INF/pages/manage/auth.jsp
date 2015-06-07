@@ -38,7 +38,7 @@
                 <form:hidden path="page" value="${pagination.currentPage}"/>
             </form:form>
             
-            <table class="authTable">
+            <table class="authTable" id="auth_table">
                 <thead>
                     <tr>
                         <th>
@@ -83,7 +83,7 @@
                 </tfoot>
                 <tbody>
                     <c:forEach items="${authList}" var="auth">
-                        <tr>
+                        <tr data-id="${auth.id}">
                             <td>
                                     ${auth.id}
                             </td>
