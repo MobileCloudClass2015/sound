@@ -34,5 +34,22 @@
         WHERE
           `id` = #{id}
     </select>
+    
+    <select id="selectCountAuths" parameterType="AuthSearchFilter" resultType="Integer">
+        SELECT
+          COUNT(*)
+        FROM
+          `auth`
+    </select>
+    
+    <select id="selectAuths" parameterType="AuthSearchFilter" resultType="Auth">
+        SELECT
+          `id`, `name`, `email`, `registerDate`
+        FROM
+          `auth`
+        ORDER BY
+          `registerDate` DESC
+        LIMIT #{pagination.itemSeqBegin}, #{pagination.numItemsPerPage}
+    </select>
 
 </mapper>

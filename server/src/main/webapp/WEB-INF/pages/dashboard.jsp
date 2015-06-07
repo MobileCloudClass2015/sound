@@ -11,7 +11,7 @@
 		</header>
 		
 		<article class="common_article">
-			TEST
+
 		</article>
 
 	</section>

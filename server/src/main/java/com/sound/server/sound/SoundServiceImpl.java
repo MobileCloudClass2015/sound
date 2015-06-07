@@ -1,10 +1,12 @@
 package com.sound.server.sound;
 
+import com.sound.server.util.Pagination;
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -25,6 +27,21 @@ public class SoundServiceImpl extends SqlSessionDaoSupport implements SoundServi
     @Override
     public List<Sound> selectMaxCountSound(String id) {
         return getSqlSession().selectList("sound.selectMaxCountSound", id);
+    }
+
+    @Override
+    public List<Sound> selectSounds(SoundFilter soundFilter) {
+        Pagination pagination = soundFilter.getPagination();
+        int count = selectCountSounds(soundFilter);
+        pagination.setNumItems(count);
+        if(count == 0){
+            return new ArrayList<Sound>();
+        }
+        return getSqlSession().selectList("sound.selectSounds", soundFilter);
+    }
+
+    private int selectCountSounds(SoundFilter soundFilter) {
+        return getSqlSession().selectOne("sound.selectCountSounds",soundFilter);
     }
 
     private void insertSound(Sound sound){

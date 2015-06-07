@@ -10,4 +10,6 @@ public interface SoundService {
     void insert(Sound sound);
     
     List<Sound> selectMaxCountSound(String id);
+
+    List<Sound> selectSounds(SoundFilter soundFilter);
 }

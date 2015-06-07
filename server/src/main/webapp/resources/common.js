@@ -76,4 +76,9 @@ $(function(){
         });
     });
     
+    $('#auth_table>tbody>tr').on('click', function(){
+        var authId = $(this).attr('data-id');
+        location.href = contextPath + '/manage/auth/'+authId;
+    });
+    
 });
