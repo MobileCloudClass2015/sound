@@ -1,25 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
-<c:set var="cp" value="<%=request.getContextPath() %>"/>
-<c:set var="rp" value='<%=request.getAttribute("javax.servlet.forward.request_uri")%>'/>
-
-<!DOCTYPE html>
-<html lang="kr">
-<head>
-	<title></title>
-	<script src="${cp}/resources/jquery-1.11.2.min.js"></script>
-	<script src="${cp}/resources/jquery.json.js"></script>
-
-	<script>
-		var contextPath = '<c:out value="${cp}"/>';
-		var realPath = '<c:out value="${rp}"/>';
-	</script>
-</head>
-<body>
+<%@ include file="../layout/header.jspf" %>
 
 	<%-- Search --%>
 	<script>
@@ -108,5 +87,4 @@
 	<span id="recommendListResult"></span>
 	<br/>
 
-</body>
-</html>
+<%@ include file="../layout/footer.jspf" %>

@@ -16,9 +16,11 @@
         <org.mybatis-version>1.1.1</org.mybatis-version>
         <org.mybatis.dbcp-version>1.2.2</org.mybatis.dbcp-version>
         <org.mybatis.mysql-version>5.1.9</org.mybatis.mysql-version>
+        <org.spring.security-version>3.1.3.RELEASE</org.spring.security-version>
     </properties>
 
     <dependencies>
+        
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-core</artifactId>
@@ -50,12 +52,32 @@
             <version>${spring.version}</version>
         </dependency>
 
+        <!-- Spring Security -->
         <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-test</artifactId>
-            <version>${spring.version}</version>
-            <scope>test</scope>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-core</artifactId>
+            <version>${org.spring.security-version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-web</artifactId>
+            <version>${org.spring.security-version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-config</artifactId>
+            <version>${org.spring.security-version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-taglibs</artifactId>
+            <version>${org.spring.security-version}</version>
+        </dependency>
+
+
 
         <dependency>
             <groupId>junit</groupId>
