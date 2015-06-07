@@ -6,6 +6,7 @@
 -keep class com.sound.app.auth.AuthActivity { <init>(); }
 -keep class com.sound.app.LoginActivity { <init>(); }
 -keep class com.kure.musicplayer.activities.ActivityMenuMain { <init>(); }
+-keep class com.sound.app.youtube.VideoListDemoActivity { <init>(); }
 -keep class com.kure.musicplayer.activities.ActivityMenuMusic { <init>(); }
 -keep class com.kure.musicplayer.activities.ActivityMenuSettings { <init>(); }
 -keep class com.kure.musicplayer.activities.ActivityMenuArtist { <init>(); }

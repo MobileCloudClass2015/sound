@@ -6,10 +6,13 @@ android/support/v7/app/ActionBar$Callback.class
 com/google/android/gms/ads/internal/request/AdResponseParcel.class
 com/google/android/gms/internal/zzet.class
 com/kure/musicplayer/kMP.class
+com/google/android/youtube/player/YouTubePlayer$OnInitializedListener.class
 android/support/v4/view/GravityCompat.class
+com/sound/app/youtube/VideoListDemoActivity$VideoFragment.class
 com/google/api/client/testing/json/AbstractJsonParserTest$EnumValue.class
 com/fasterxml/jackson/databind/ser/std/StdKeySerializers.class
 com/fasterxml/jackson/databind/ser/std/StdArraySerializers$FloatArraySerializer.class
+com/sound/app/LoginActivity$4.class
 com/google/api/client/googleapis/auth/authsub/AuthSubHelper$TokenInfoResponse.class
 org/codehaus/jackson/annotate/JsonContentClass.class
 com/google/android/gms/internal/zzcb.class
@@ -39,6 +42,7 @@ com/fasterxml/jackson/databind/introspect/POJOPropertyBuilder.class
 android/support/v4/view/ViewCompat$ImportantForAccessibility.class
 com/fasterxml/jackson/databind/ser/impl/ObjectIdWriter.class
 com/fasterxml/jackson/databind/type/TypeBase.class
+com/sound/app/youtube/VideoListDemoActivity$PageAdapter.class
 com/google/android/gms/internal/zzco.class
 com/fasterxml/jackson/annotation/JacksonInject.class
 com/google/ads/mediation/NetworkExtras.class
@@ -47,11 +51,12 @@ com/google/android/gms/internal/zzha.class
 com/google/ads/mediation/customevent/CustomEventBanner.class
 com/google/api/client/googleapis/json/DiscoveryDocument$ServiceMethod.class
 com/fasterxml/jackson/databind/ser/std/NumberSerializer.class
+com/google/android/youtube/player/YouTubeApiServiceUtil.class
 android/support/v4/app/FragmentTransaction$Transit.class
 com/fasterxml/jackson/databind/ser/PropertyWriter.class
 com/google/android/gms/ads/internal/request/zzc.class
-com/google/common/base/package-info.class
 com/fasterxml/jackson/annotation/JsonFormat.class
+com/google/common/base/package-info.class
 com/fasterxml/jackson/databind/deser/std/ObjectArrayDeserializer.class
 com/fasterxml/jackson/databind/deser/std/PrimitiveArrayDeserializers$ByteDeser.class
 android/support/v4/view/ViewCompat.class
@@ -162,8 +167,8 @@ com/kure/musicplayer/activities/ActivityMenuPlaylist.class
 com/fasterxml/jackson/databind/jsonFormatVisitors/JsonFormatTypes.class
 android/support/annotation/Nullable.class
 com/google/android/gms/internal/zzv.class
-com/kure/musicplayer/activities/ActivityMenuAlbum.class
 com/google/common/collect/package-info.class
+com/kure/musicplayer/activities/ActivityMenuAlbum.class
 com/fasterxml/jackson/databind/JsonSerializer.class
 com/google/common/base/Strings.class
 com/google/common/collect/ImmutableSet.class
@@ -171,6 +176,7 @@ android/support/annotation/DimenRes.class
 com/google/android/gms/analytics/GoogleAnalytics.class
 com/kure/musicplayer/external/RemoteControlClientCompat$1.class
 android/support/v7/widget/LinearLayoutCompat.class
+com/sound/app/youtube/VideoListDemoActivity$VideoEntry.class
 com/google/common/collect/RegularImmutableMap$LinkedEntry.class
 com/fasterxml/jackson/databind/ser/std/MapSerializer.class
 com/fasterxml/jackson/databind/annotation/JsonAppend$Prop.class
@@ -220,7 +226,9 @@ com/google/android/gms/internal/zzba.class
 com/google/ads/mediation/AbstractAdViewAdapter.class
 com/google/api/client/http/HttpHeaders.class
 com/google/common/io/package-info.class
+com/google/android/youtube/player/YouTubeInitializationResult.class
 com/fasterxml/jackson/annotation/JsonAutoDetect$Visibility.class
+com/google/android/youtube/player/YouTubePlayer$Provider.class
 com/kure/musicplayer/services/ServicePlayMusic$1.class
 com/google/android/gms/internal/zzei.class
 org/codehaus/jackson/annotate/JsonAutoDetect$1.class
@@ -236,8 +244,8 @@ com/google/common/util/concurrent/package-info.class
 com/fasterxml/jackson/databind/ser/std/StdDelegatingSerializer.class
 com/google/android/gms/ads/internal/purchase/zzi.class
 com/google/android/gms/games/Player.class
-com/kure/musicplayer/activities/ActivityMenuMusic.class
 com/fasterxml/jackson/annotation/JsonAnyGetter.class
+com/kure/musicplayer/activities/ActivityMenuMusic.class
 com/kure/musicplayer/activities/ActivityListSongs$1.class
 com/google/android/gms/location/internal/zze.class
 com/kure/musicplayer/activities/ActivityNowPlaying$3.class
@@ -362,6 +370,7 @@ com/fasterxml/jackson/databind/ser/std/NumberSerializers$IntegerSerializer.class
 android/support/v7/app/ActionBar.class
 com/fasterxml/jackson/core/json/JsonReadContext.class
 com/fasterxml/jackson/databind/deser/std/UntypedObjectDeserializer.class
+com/sound/app/youtube/VideoListDemoActivity.class
 com/google/android/gms/internal/zzgg$zza.class
 com/google/api/client/auth/oauth2/AccessTokenErrorResponse.class
 com/google/api/client/googleapis/GoogleUrl.class
@@ -400,8 +409,8 @@ com/sound/app/auth/AuthActivity$3.class
 com/fasterxml/jackson/databind/ser/impl/PropertySerializerMap.class
 com/fasterxml/jackson/core/JsonFactory.class
 com/fasterxml/jackson/databind/deser/std/MapDeserializer.class
-com/fasterxml/jackson/annotation/JsonGetter.class
 com/google/android/gms/internal/zzdp.class
+com/fasterxml/jackson/annotation/JsonGetter.class
 com/google/android/gms/analytics/HitBuilders$ItemBuilder.class
 com/sound/app/MainActivity.class
 com/google/android/gms/common/internal/zze.class
@@ -474,8 +483,8 @@ com/fasterxml/jackson/annotation/JsonPropertyDescription.class
 com/google/android/gms/internal/zzdd.class
 com/fasterxml/jackson/annotation/JsonIgnore.class
 org/springframework/http/HttpHeaders.class
-com/google/common/annotations/GwtIncompatible.class
 com/google/api/client/util/Value.class
+com/google/common/annotations/GwtIncompatible.class
 com/sound/app/weather/WeatherAsyncTask.class
 com/google/api/client/util/ClassInfo.class
 com/fasterxml/jackson/databind/annotation/JsonPOJOBuilder.class
@@ -513,6 +522,7 @@ android/support/v4/view/ViewCompat$ResolvedLayoutDirectionMode.class
 com/fasterxml/jackson/databind/ser/BeanPropertyFilter.class
 org/codehaus/jackson/annotate/JsonProperty.class
 com/google/android/gms/internal/zzev.class
+com/sound/app/youtube/VideoListDemoActivity$2.class
 com/google/api/client/auth/oauth/OAuthCredentialsResponse.class
 com/google/android/gms/appindexing/AppIndexApi.class
 android/support/v4/app/FragmentManager.class
@@ -539,6 +549,7 @@ com/google/android/gms/ads/internal/client/zzi.class
 org/codehaus/jackson/annotate/JsonTypeInfo.class
 com/fasterxml/jackson/databind/ser/impl/MapEntrySerializer.class
 android/support/v4/widget/ResourceCursorAdapter.class
+com/sound/app/youtube/VideoListDemoActivity$VideoListFragment.class
 org/springframework/core/convert/support/ConversionServiceFactory.class
 com/google/android/gms/ads/internal/zzh.class
 com/google/android/gms/ads/internal/overlay/zzc$zza.class
@@ -563,8 +574,8 @@ com/google/common/annotations/VisibleForTesting.class
 com/google/api/client/auth/oauth2/draft10/AccessTokenResponse.class
 com/fasterxml/jackson/databind/KeyDeserializer.class
 com/fasterxml/jackson/databind/deser/std/DelegatingDeserializer.class
-com/sound/app/LoginActivity.class
 com/google/android/gms/ads/internal/InterstitialAdParameterParcel.class
+com/sound/app/LoginActivity.class
 com/fasterxml/jackson/databind/introspect/BasicBeanDescription.class
 com/fasterxml/jackson/databind/annotation/JacksonStdImpl.class
 com/google/android/gms/internal/zzbv.class
@@ -610,6 +621,7 @@ com/google/android/gms/plus/PlusShare.class
 com/google/android/gms/internal/zzca.class
 com/google/common/primitives/package-info.class
 com/google/android/gms/internal/zzek.class
+com/google/android/youtube/player/YouTubePlayerFragment.class
 com/google/android/gms/internal/zzic.class
 com/google/android/gms/internal/zzcv.class
 com/fasterxml/jackson/databind/util/Converter$None.class
@@ -637,9 +649,9 @@ android/support/v4/widget/MaterialProgressDrawable$EndCurveInterpolator.class
 com/fasterxml/jackson/databind/PropertyNamingStrategy$LowerCaseWithUnderscoresStrategy.class
 com/google/android/gms/wallet/WalletConstants.class
 com/sound/app/weather/GpsLocationInfo.class
+com/google/android/gms/internal/zzgd.class
 com/google/android/gms/ads/internal/overlay/zzc.class
 com/google/android/gms/analytics/HitBuilders$TransactionBuilder.class
-com/google/android/gms/internal/zzgd.class
 com/google/ads/mediation/MediationAdapter.class
 com/fasterxml/jackson/databind/deser/std/BaseNodeDeserializer.class
 com/kure/musicplayer/activities/ActivityNowPlaying.class
@@ -661,6 +673,7 @@ com/google/common/net/package-info.class
 com/google/android/gms/internal/zzfa.class
 com/google/api/client/auth/oauth2/AccessTokenRequest$ResourceOwnerPasswordCredentialsGrant.class
 com/google/api/client/testing/json/AbstractJsonParserTest$E.class
+com/google/android/youtube/player/YouTubePlayer.class
 com/google/android/gms/internal/zzz.class
 com/google/android/gms/internal/zzea.class
 com/google/common/collect/ImmutableMultiset.class
@@ -721,6 +734,7 @@ com/fasterxml/jackson/databind/annotation/JsonNaming.class
 com/fasterxml/jackson/annotation/JsonIdentityReference.class
 com/fasterxml/jackson/databind/annotation/JsonAppend$Attr.class
 org/springframework/http/client/HttpComponentsAndroidClientHttpRequest.class
+com/sound/app/youtube/VideoListDemoActivity$1.class
 com/google/android/gms/internal/zzbg.class
 org/codehaus/jackson/impl/DefaultPrettyPrinter.class
 com/google/api/client/googleapis/auth/clientlogin/ClientLogin$ErrorInfo.class
@@ -792,6 +806,7 @@ android/support/v4/widget/SlidingPaneLayout.class
 com/fasterxml/jackson/databind/ObjectMapper.class
 com/google/api/client/testing/json/AbstractJsonParserTest$NumberTypesAsString.class
 com/google/android/gms/maps/MapView.class
+com/google/android/youtube/player/YouTubePlayer$OnFullscreenListener.class
 com/fasterxml/jackson/databind/PropertyNamingStrategy$PascalCaseStrategy.class
 com/kure/musicplayer/NotificationSimple.class
 com/google/android/gms/internal/zzcx.class

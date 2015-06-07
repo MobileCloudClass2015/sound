@@ -46,14 +46,14 @@ public final class R {
 		public static final int bs_list_selector = 0x7f02003c;
 	}
 	public static final class id {
-		public static final int bottom_sheet_gridview = 0x7f0c006c;
-		public static final int bottom_sheet_title = 0x7f0c006b;
-		public static final int bottom_sheet_title_image = 0x7f0c006a;
-		public static final int bs_list_image = 0x7f0c006d;
-		public static final int bs_list_title = 0x7f0c006e;
+		public static final int bottom_sheet_gridview = 0x7f0c006d;
+		public static final int bottom_sheet_title = 0x7f0c006c;
+		public static final int bottom_sheet_title_image = 0x7f0c006b;
+		public static final int bs_list_image = 0x7f0c006e;
+		public static final int bs_list_title = 0x7f0c006f;
 		public static final int bs_more = 0x7f0c0004;
-		public static final int header = 0x7f0c0070;
-		public static final int headerlayout = 0x7f0c006f;
+		public static final int header = 0x7f0c0071;
+		public static final int headerlayout = 0x7f0c0070;
 	}
 	public static final class integer {
 		public static final int bs_grid_colum = 0x7f0d0003;

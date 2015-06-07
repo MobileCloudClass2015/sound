@@ -25,6 +25,7 @@ import com.sound.app.weather.GpsLocationInfo;
 import com.sound.app.weather.Weather;
 import com.sound.app.weather.WeatherAsyncTask;
 import com.sound.app.weather.WeatherHttpClient;
+import com.sound.app.youtube.VideoListDemoActivity;
 
 public class LoginActivity extends Activity {
 
@@ -38,6 +39,7 @@ public class LoginActivity extends Activity {
     private BackPressCloseHandler backPressCloseHandler;
     private Button button;
     private Button myListBtn;
+    private Button youtubeBtn;
     private GpsLocationInfo gpsLocationInfo;
 
     @Override
@@ -93,6 +95,16 @@ public class LoginActivity extends Activity {
             @Override
             public void onClick(View v) {
                 new MyListAsyncTask(getApplicationContext()).execute();
+            }
+        });
+
+        this.youtubeBtn=(Button)findViewById(R.id.youtubeBtn);
+        this.youtubeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this, VideoListDemoActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
 
