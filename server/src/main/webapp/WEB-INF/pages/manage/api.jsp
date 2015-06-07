@@ -1,4 +1,4 @@
-<%@ include file="../layout/header.jspf" %>
+<%@ include file="../../layout/header.jspf" %>
 
 	<%-- Search --%>
 	<script>
@@ -87,4 +87,4 @@
 	<span id="recommendListResult"></span>
 	<br/>
 
-<%@ include file="../layout/footer.jspf" %>
+<%@ include file="../../layout/footer.jspf" %>

@@ -1,5 +1,8 @@
 package com.sound.server.admin;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -8,27 +11,20 @@ import org.springframework.web.bind.annotation.RequestMethod;
 /**
  * Created by Francis on 2015-06-07.
  */
+@PreAuthorize("hasRole('ROLE_ADMIN')")
 @Controller
+@RequestMapping("/manage")
 public class AdminController {
     
-    @RequestMapping(value = {"/", "/signIn"}, method = RequestMethod.GET)
-    public String indexPage() {
-        return "signIn";
-    }
-
-    @RequestMapping(value = "/noPermission", method = RequestMethod.GET)
-    public String permissionPage(Model model) {
-        return "noPermission";
-    }
-
-    @RequestMapping(value="/dashboard", method = RequestMethod.GET)
-    public String dashboard() {
-        return "dashboard";
-    }
+    private static Logger logger = LoggerFactory.getLogger(AdminController.class);
     
     @RequestMapping(value = "/api", method = RequestMethod.GET)
     public String apiPage(Model model){
-        return "api";
+        return "manage/api";
+    }
+    
+    @RequestMapping(value = "/auth", method = RequestMethod.GET)
+    public String authManagePage(Model model){
+        return "auth";
     }
 }
-
