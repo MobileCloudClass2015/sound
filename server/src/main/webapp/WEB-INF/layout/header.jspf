@@ -21,6 +21,7 @@
 
     <script src="${cp}/resources/jquery-1.11.2.min.js"></script>
     <script src="${cp}/resources/jquery.json.js"></script>
+    <script src="${cp}/resources/common.js"></script>
 
     <script>
         var contextPath = '<c:out value="${cp}"/>';
