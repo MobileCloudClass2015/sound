@@ -22,8 +22,13 @@ public class AdminController {
     }
 
     @RequestMapping(value="/dashboard", method = RequestMethod.GET)
-    public String printWelcome() {
-        return "hello";
+    public String dashboard() {
+        return "dashboard";
+    }
+    
+    @RequestMapping(value = "/api", method = RequestMethod.GET)
+    public String apiPage(Model model){
+        return "api";
     }
 }
 
