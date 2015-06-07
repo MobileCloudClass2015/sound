@@ -3,6 +3,8 @@
 <configuration>
     <typeAliases>
         <typeAlias type="com.sound.server.auth.Auth" alias="Auth"/>
+        <typeAlias type="com.sound.server.auth.AuthSearchFilter" alias="AuthSearchFilter"/>
+        
         <typeAlias type="com.sound.server.sound.Sound" alias="Sound"/>
         <typeAlias type="com.sound.server.sound.SoundFilter" alias="SoundFilter"/>
     </typeAliases>
