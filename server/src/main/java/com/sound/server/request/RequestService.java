@@ -77,7 +77,7 @@ public class RequestService {
             JsonPrimitive title = (JsonPrimitive) trackObject.get("title");
             JsonPrimitive url = (JsonPrimitive) trackObject.get("url");
         
-            track = new Track(trackId.toString(), artist.toString(), title.toString(), url.toString());
+            track = new Track(trackId.getAsString(), artist.getAsString(), title.getAsString(), url.getAsString());
         }else{
             track = new Track();
         }
@@ -101,7 +101,7 @@ public class RequestService {
             JsonPrimitive url = (JsonPrimitive) trackObject.get("url");
             JsonPrimitive score = (JsonPrimitive) trackObject.get("score");
 
-            Track track = new Track(trackId.toString(), artist.toString(), title.toString(), url.toString(), score.getAsDouble());
+            Track track = new Track(trackId.getAsString(), artist.getAsString(), title.getAsString(), url.getAsString(), score.getAsDouble());
             list.add(track);
         }
 

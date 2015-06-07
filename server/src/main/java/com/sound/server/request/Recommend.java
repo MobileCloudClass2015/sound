@@ -24,7 +24,7 @@ public class Recommend {
         JSONObject parameter = new JSONObject();
         try {
             // Default GOD - 바람 Youtube https://www.youtube.com/watch?v=QZvV313a3xc
-            parameter.put("track_id", this.trackId == null ? "msNbcnXS38fP4HYI" : this.trackId.replaceAll("\"", ""));
+            parameter.put("track_id", this.trackId == null ? "msNbcnXS38fP4HYI" : this.trackId);
             parameter.put("count", this.count == null? 10 : this.count);
         } catch (JSONException e) {
             e.printStackTrace();

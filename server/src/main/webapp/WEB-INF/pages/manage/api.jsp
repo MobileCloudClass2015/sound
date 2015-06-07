@@ -11,94 +11,87 @@
 		</header>
 
 		<article class="common_article">
-			<%-- Search --%>
-			<script>
-				$(function(){
-					$('#search').on('click', function(){
-						var url = contextPath+'/request/search';
-						var json = {
-							artist : $('#artist').val(),
-							title : $('#title').val(),
-							start : $('#start').val(),
-							count : $('#count').val()
-						};
+			
+			<header>
+				<h2>Bonacell Search API</h2>
+				<span>"/request/search"</span>
+			</header>
 
-						$.postJSON(url, json, function(result){
-							$('#result').text(JSON.stringify(result));
-							$("#track").text(JSON.stringify(result.track));
-						});
+			<ul class="common_input_wrap">
+				<li>
+					<label for="search_title">TITLE</label>
+					<input type="text" id="search_title" value=""/>
+				</li>
+				<li>
+					<label for="search_artist">ARTIST</label>
+					<input type="text" id="search_artist" value="GOD"/>
+				</li>
+				<li>
+					<label for="search_start">START</label>
+					<input type="text" id="search_start" value="0"/>
+				</li>
+				<li>
+					<label for="search_count">COUNT</label>
+					<input type="text" id="search_count" value="10"/>
+				</li>
+			</ul>
 
-					});
-				});
-			</script>
-
-			<input type="text" id="title" value=""/>
-			<input type="text" id="artist" value="GOD"/>
-			<input type="text" id="start" value="0"/>
-			<input type="text" id="count" value="10"/>
-
-			<button type="button" id="search">Search</button>
-
-			<span id="result"></span>
-			<span id="track"></span>
+			<button type="button" id="bonacell_search_btn" class="orangeButton">Search</button>
+			
+			<ul class="common_result_wrap" id="bonacell_search_result">
+			</ul>
 			
 		</article>
 
 		<article class="common_article">
-			<%-- Recommend --%>
-			<script>
-				$(function(){
-					$('#recommendBtn').on('click', function(){
-						var url = contextPath + '/request/recommend'
-						var json = {
-							trackId : $('#trackId').val(),
-							count : $('#recommendCount').val()
-						};
+			<header>
+				<h2>Bonacell Recommend API</h2>
+				<span>"/request/recommend"</span>
+			</header>
 	
-						$.postJSON(url,json, function(result){
-							$('#recommendResult').text(JSON.stringify(result));
-							$("#tracks").text(JSON.stringify(result.tracks));
-						});
-					})
+			<ul class="common_input_wrap">
+				<li>
+					<label for="recommend_trackId">TRACK_ID</label>
+					<input type="text" id="recommend_trackId" value="msNbcnXS38fP4HYI"/>
+				</li>
+				<li>
+					<label for="recommend_count">COUNT</label>
+					<input type="text" id="recommend_count" value="10"/>
+				</li>
+			</ul>
 	
-				});
-			</script>
-	
-			<input type="text" id="trackId" value="msNbcnXS38fP4HYI"/>
-			<input type="text" id="recommendCount" value="10"/>
-	
-			<button type="button" id="recommendBtn">Recommend</button>
-	
-			<span id="recommendResult"></span>
-			<span id="tracks"></span>
+			<button type="button" id="bonacell_recommend_btn" class="orangeButton">Recommend</button>
+
+			<ul class="common_result_wrap" id="bonacell_recommend_result">
+			</ul>
+		
 		</article>
 		
-		<%-- RecommednMap --%>
-		<%-- Search --%>
 		<article class="common_article">
-			<script>
-				$(function(){
-					$('#recommendSearch').on('click', function(){
-						var url = contextPath+'/recommendList';
-						var json = {
-							artist : $('#recommendArtist').val(),
-							title : $('#recommendTitle').val()
-						};
+			
+			<header>
+				<h2>Search And Recommend API</h2>
+				<span>"/recommendList"</span>
+			</header>
+			
+			<ul class="common_input_wrap">
+				<li>
+					<label for="search_recommend_title">TITLE</label>
+					<input type="text" id="search_recommend_title" value="거짓말"/>
+				</li>
+				<li>
+					<label for="search_recommend_artist">ARTIST</label>
+					<input type="text" id="search_recommend_artist" value="GOD"/>
+				</li>
+			</ul>
 
-						$.postJSON(url, json, function(result){
-							$('#recommendListResult').text(JSON.stringify(result));
-						});
-
-					});
-				});
-			</script>
-
-			<input type="text" id="recommendTitle" value="거짓말"/>
-			<input type="text" id="recommendArtist" value="GOD"/>
-
-			<button type="button" id="recommendSearch">Recommend List</button>
+			<button type="button" id="bonalcell_search_recommend_btn" class="orangeButton">Search Recommend</button>
 
 			<span id="recommendListResult"></span>
+			
+			<ul class="common_result_wrap" id="bonacell_search_recommend_result">
+			</ul>
+			
 		</article>
 		
 	</section>

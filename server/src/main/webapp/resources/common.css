@@ -34,3 +34,22 @@
 .common_header>h1{ font-size: 100%; border-left: 3px solid #5696bc;  text-indent: 10px;}
 
 .common_article{ padding: 10px 15px; }
+.common_article>header{ padding: 5px; width: 100%; height: 16px;}
+.common_article>header>h2{ font-size: 81.75%; color: #011522; float: left; height: 16px; line-height: 16px;}
+.common_article>header>span{ font-size: 75%; float: left; height: 16px; line-height: 16px; margin-left: 10px; color: #e04836;}
+
+.common_input_wrap{}
+.common_input_wrap li{ padding: 6px; height: 30px;}
+.common_input_wrap label{ font-size: 75%; width: 70px; display: block; float: left; height: 30px; line-height: 30px;}
+.common_input_wrap input{ font-size: 75%; padding: 5px; border: 1px solid #c0c0c0;}
+.common_input_wrap input:focus { border: 1px solid #2f5168}
+
+.common_result_wrap{}
+.common_result_wrap li{ padding: 6px; font-size: 67.5%; color: #000;}
+.common_result_wrap li.highlight{ color: #e04836; font-weight: bold;}
+.common_result_wrap li>a{ color: #5696bc;}
+.common_result_wrap li>a:hover{ color: #011522;}
+
+
+.orangeButton{ background: #f39d41; color: #fff; font-size: 75%; border-radius: 4px; border: 0px; padding: 8px 10px; }
+.orangeButton:hover{ background: #e08a2e; }
