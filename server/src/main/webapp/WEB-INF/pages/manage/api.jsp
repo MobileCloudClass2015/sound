@@ -1,4 +1,7 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ include file="../../layout/header.jspf" %>
+
+<section>
 
 	<%-- Search --%>
 	<script>
@@ -86,5 +89,7 @@
 
 	<span id="recommendListResult"></span>
 	<br/>
+
+</section>
 
 <%@ include file="../../layout/footer.jspf" %>
