@@ -7,11 +7,11 @@
     tools:context="com.sound.app.LoginActivity">
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="youtube"
+        android:text="Recommendation List"
         android:id="@+id/youtubeBtn"
-        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/weatherinfo"
         android:layout_centerHorizontal="true" />
 
     <TextView
