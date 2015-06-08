@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -24,11 +25,13 @@ public class WeatherAsyncTask extends AsyncTask<Void, Void, Weather> {
     private Context context;
     ImageView weatherimg;
     Bitmap bitmap;
+    TextView weatherinfo;
 
-    public WeatherAsyncTask(Context context, GpsLocationInfo gpsLocationInfo, ImageView weatherimg) {
+    public WeatherAsyncTask(Context context, GpsLocationInfo gpsLocationInfo, ImageView weatherimg, TextView weatherinfo) {
         this.gpsLocationInfo = gpsLocationInfo;
         this.context = context;
         this.weatherimg=weatherimg;
+        this.weatherinfo=weatherinfo;
     }
 
     @Override
@@ -61,10 +64,10 @@ public class WeatherAsyncTask extends AsyncTask<Void, Void, Weather> {
         Log.d(TAG, getWeather.toString());
         if (image.length > 0) {
                 // ~ TODO
-            Log.e("123", ""+image.length);
-            bitmap= BitmapFactory.decodeByteArray(image, 0, image.length);
-            weatherimg.setImageBitmap(bitmap);
+            this.bitmap= BitmapFactory.decodeByteArray(image, 0, image.length);
+            this.weatherimg.setImageBitmap(bitmap);
         }
-
+        if(weatherinfo!=null)
+            this.weatherinfo.setText(getWeather.toString());
     }
 }

@@ -32,5 +32,14 @@
         android:focusable="false"
         android:focusableInTouchMode="false" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/weatherinfo"
+        android:layout_below="@+id/weatherimg"
+        android:layout_centerHorizontal="true"
+        android:text="test" />
+
 
 </RelativeLayout>

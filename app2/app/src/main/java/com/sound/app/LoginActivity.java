@@ -34,6 +34,7 @@ public class LoginActivity extends Activity {
     private GpsLocationInfo gpsLocationInfo;
     private BackPressCloseHandler backPressCloseHandler;
     private ImageView imgview;
+    private TextView weatherinfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,7 +76,7 @@ public class LoginActivity extends Activity {
             this.gpsLocationInfo.showSettingsAlert();
         }
         imgview=(ImageView)findViewById(R.id.weatherimg);
-        new WeatherAsyncTask(getApplicationContext(), this.gpsLocationInfo, this.imgview).execute();
+        new WeatherAsyncTask(getApplicationContext(), this.gpsLocationInfo, this.imgview, this.weatherinfo).execute();
     }
 
     @Override
