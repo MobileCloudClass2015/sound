@@ -40,6 +40,13 @@
         android:layout_below="@+id/weatherimg"
         android:layout_centerHorizontal="true"
         android:text="test" />
-
+    <ListView
+        android:id="@+id/list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/youtubeBtn"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+    </ListView>
 
 </RelativeLayout>
