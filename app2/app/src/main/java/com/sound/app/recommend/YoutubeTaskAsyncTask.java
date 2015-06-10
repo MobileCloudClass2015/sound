@@ -14,7 +14,6 @@ import android.widget.TextView;
 import com.sound.app.R;
 import com.sound.app.dto.MyPlayMap;
 import com.sound.app.dto.Sound;
-import com.sound.app.dto.Track;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.ResourceAccessException;
@@ -27,17 +26,14 @@ import java.util.List;
 /**
  * Created by Francis on 2015-06-06.
  */
-public class MyListAsyncTask extends AsyncTask<Void, Void, MyPlayMap> {
+public class YoutubeTaskAsyncTask extends AsyncTask<Void, Void, MyPlayMap> {
 
-    private static final String TAG = "MyListAsyncTask";
+    private static final String TAG = "YoutubeTaskAsyncTask";
 
     private Context context;
 
-    private ListView listView;
-
-    public MyListAsyncTask(Context context, ListView listView) {
+    public YoutubeTaskAsyncTask(Context context) {
         this.context = context;
-        this.listView = listView;
     }
 
     @Override
@@ -79,53 +75,8 @@ public class MyListAsyncTask extends AsyncTask<Void, Void, MyPlayMap> {
         if(myPlayMap == null || !myPlayMap.getResult()){
             return;
         }
-        Log.d(TAG, myPlayMap.toString());
-
-        List<Sound> sounds = myPlayMap.getSounds();
-        List<String> list = new ArrayList<String>();
-        if(sounds != null && sounds.size() > 0){
-            for(Sound sound : sounds) {
-                list.add(sound.getArtist() + " " + sound.getTitle());
-            }
-        }else{
-            list.add("Data doesn't exist");
-        }
-        final StableArrayAdapter adapter = new StableArrayAdapter(context, android.R.layout.simple_list_item_1, list);
-        listView.setAdapter(adapter);
-    }
-
-    private class StableArrayAdapter extends ArrayAdapter<String> {
-
-        HashMap<String, Integer> mIdMap = new HashMap<String, Integer>();
-
-        public StableArrayAdapter(Context context, int textViewResourceId, List<String> objects) {
-            super(context, textViewResourceId, objects);
-            for (int i = 0; i < objects.size(); ++i) {
-                mIdMap.put(objects.get(i), i);
-            }
-        }
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            View view =super.getView(position, convertView, parent);
-
-            TextView textView=(TextView) view.findViewById(android.R.id.text1);
-            /*YOUR CHOICE OF COLOR*/
-            textView.setTextColor(Color.BLACK);
-            textView.setTextSize(12);
-            return view;
-        }
-
-        @Override
-        public long getItemId(int position) {
-            String item = getItem(position);
-            return mIdMap.get(item);
-        }
-
-        @Override
-        public boolean hasStableIds() {
-            return true;
-        }
 
     }
+
 }
 

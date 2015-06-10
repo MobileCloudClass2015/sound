@@ -1,25 +1,16 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:layout_height="match_parent"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="com.sound.app.LoginActivity">
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Recommendation List"
-        android:id="@+id/youtubeBtn"
-        android:layout_below="@+id/weatherinfo"
-        android:layout_centerHorizontal="true" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="오늘의 날씨"
+        android:text="Todays Weather"
         android:id="@+id/textView"
+        android:textSize="22sp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 
@@ -33,13 +24,43 @@
         android:focusableInTouchMode="false" />
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/weatherinfo"
         android:layout_below="@+id/weatherimg"
-        android:layout_centerHorizontal="true"
-        android:text="test" />
+        android:text="Main Weather"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        android:layout_alignRight="@+id/youtubeBtn"
+        android:layout_alignEnd="@+id/youtubeBtn"
+        android:layout_marginTop="10dp"
+        android:gravity="center_vertical|center_horizontal" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/weatherDescription"
+        android:text="Description Weather"
+        android:textAlignment="center"
+        android:textSize="16sp"
+        android:layout_below="@+id/weatherinfo"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="10dp"
+        android:gravity="center_vertical|center_horizontal" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Recommendation List"
+        android:id="@+id/youtubeBtn"
+        android:layout_below="@+id/weatherDescription"
+        android:layout_marginTop="10dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
     <ListView
         android:id="@+id/list"
         android:layout_width="match_parent"

@@ -26,12 +26,14 @@ public class WeatherAsyncTask extends AsyncTask<Void, Void, Weather> {
     ImageView weatherimg;
     Bitmap bitmap;
     TextView weatherinfo;
+    TextView weatherDescription;
 
-    public WeatherAsyncTask(Context context, GpsLocationInfo gpsLocationInfo, ImageView weatherimg, TextView weatherinfo) {
+    public WeatherAsyncTask(Context context, GpsLocationInfo gpsLocationInfo, ImageView weatherimg, TextView weatherinfo, TextView weatherDescription) {
         this.gpsLocationInfo = gpsLocationInfo;
         this.context = context;
         this.weatherimg=weatherimg;
         this.weatherinfo=weatherinfo;
+        this.weatherDescription=weatherDescription;
     }
 
     @Override
@@ -67,7 +69,9 @@ public class WeatherAsyncTask extends AsyncTask<Void, Void, Weather> {
             this.bitmap= BitmapFactory.decodeByteArray(image, 0, image.length);
             this.weatherimg.setImageBitmap(bitmap);
         }
-        if(weatherinfo!=null)
-            this.weatherinfo.setText(getWeather.toString());
+        if(getWeather != null) {
+            this.weatherinfo.setText(getWeather.getMain());
+            this.weatherDescription.setText(getWeather.getDescription());
+        }
     }
 }

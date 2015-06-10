@@ -14,7 +14,6 @@ import android.widget.TextView;
 
 import com.cocosw.bottomsheet.BottomSheet;
 import com.kure.musicplayer.activities.ActivityMenuMain;
-import com.sound.app.dto.Track;
 import com.sound.app.recommend.MyListAsyncTask;
 import com.sound.app.util.BackPressCloseHandler;
 import com.sound.app.weather.GpsLocationInfo;
@@ -32,8 +31,8 @@ public class LoginActivity extends Activity {
 
     private ImageView imgview;
     private TextView weatherinfo;
+    private TextView weatherDescription;
     private ListView listView;
-    private Track track;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,13 +78,15 @@ public class LoginActivity extends Activity {
         }
         imgview=(ImageView)findViewById(R.id.weatherimg);
         weatherinfo=(TextView)findViewById(R.id.weatherinfo);
-        new WeatherAsyncTask(getApplicationContext(), this.gpsLocationInfo, this.imgview, this.weatherinfo).execute();
+        weatherDescription = (TextView) findViewById(R.id.weatherDescription);
+        new WeatherAsyncTask(getApplicationContext(), this.gpsLocationInfo, this.imgview, this.weatherinfo, this.weatherDescription).execute();
+
+
 
         listView = (ListView) findViewById(R.id.list);
 
-        new MyListAsyncTask(LoginActivity.this, listView, track).execute();
+        new MyListAsyncTask(LoginActivity.this, listView).execute();
 
-        // TODO track 은 추천할 track 이름
     }
 
     @Override
