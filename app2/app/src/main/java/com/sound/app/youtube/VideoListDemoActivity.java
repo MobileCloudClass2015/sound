@@ -326,7 +326,13 @@ public final class VideoListDemoActivity extends Activity implements OnFullscree
               }
 
               Log.d(TAG, "Tracks " + myPlayMap.getTracks());
-
+              videoEntryList = new ArrayList<>();
+              if(myPlayMap.getTrack() != null) {
+                  Track track = myPlayMap.getTrack();
+                  String text = track.getArtist()+""+track.getTitle();
+                  String videoId = track.getUrl().replace("https://www.youtube.com/watch?v=", "");
+                  videoEntryList.add(new VideoEntry(text, videoId));
+              }
               for(Track track : myPlayMap.getTracks()){
                   String text = track.getArtist()+""+track.getTitle();
                   String videoId = track.getUrl().replace("https://www.youtube.com/watch?v=", "");
