@@ -6,7 +6,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,15 +17,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.cocosw.bottomsheet.BottomSheet;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import com.google.gson.JsonPrimitive;
+import com.kure.musicplayer.activities.ActivityMenuMain;
 import com.sound.app.util.BackPressCloseHandler;
 import com.sound.app.weather.GpsLocationInfo;
-import com.sound.app.weather.Weather;
 import com.sound.app.weather.WeatherAsyncTask;
-import com.sound.app.weather.WeatherHttpClient;
 import com.sound.app.youtube.VideoListDemoActivity;
 
 import java.util.ArrayList;
@@ -41,8 +35,8 @@ public class LoginActivity extends Activity {
     private BackPressCloseHandler backPressCloseHandler;
     private ImageView imgview;
     private TextView weatherinfo;
-
     ArrayList<Content> manylist;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,10 +53,14 @@ public class LoginActivity extends Activity {
                         prefEdit.putString("id","");
                         prefEdit.commit();
 
-                        Intent idCheck = new Intent(LoginActivity.this, MainActivity.class);
-                        startActivity(idCheck);
+                        Intent logoutIntent = new Intent(LoginActivity.this, MainActivity.class);
+                        startActivity(logoutIntent);
                         break;
 
+                    case R.id.playlist:
+                        Intent playLstIntent = new Intent(LoginActivity.this, ActivityMenuMain.class);
+                        startActivity(playLstIntent);
+                        break;
                 }
             }
         }).build();
@@ -110,6 +108,7 @@ public class LoginActivity extends Activity {
         this.backPressCloseHandler.onBackPressed(this.bottomSheet);
     }
 }
+
 class Content {
     Content(int aicon, String atext) {
         icon=aicon;
@@ -120,6 +119,7 @@ class Content {
 }
 
 class ConlistAdapter extends BaseAdapter {
+
     Context lefticon;
     LayoutInflater Inflater;
     ArrayList<Content> asrc;

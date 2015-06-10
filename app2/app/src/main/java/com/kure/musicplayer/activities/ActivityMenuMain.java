@@ -231,22 +231,23 @@ public class ActivityMenuMain extends ActivityMaster
      * Thanks, guys at StackOverflow:
      * http://stackoverflow.com/a/13578600
 	 */
-	@Override
-	public void onBackPressed() {
-
-        if (this.backPressedOnce) {
-            // Default behavior, quit it
-            super.onBackPressed();
-			kMP.forceExit(this);
-            return;
-        }
-
-        this.backPressedOnce = true;
-
-		SingleToast.show(this, getString(R.string.menu_main_back_to_exit), Toast.LENGTH_SHORT);
-
-		backPressedHandler.postDelayed(backPressedTimeoutAction, BACK_PRESSED_DELAY);
-	}
+    /* Remove Backpressed btn*/
+//	@Override
+//	public void onBackPressed() {
+//
+//        if (this.backPressedOnce) {
+//            // Default behavior, quit it
+//            super.onBackPressed();
+//			kMP.forceExit(this);
+//            return;
+//        }
+//
+//        this.backPressedOnce = true;
+//
+//		SingleToast.show(this, getString(R.string.menu_main_back_to_exit), Toast.LENGTH_SHORT);
+//
+//		backPressedHandler.postDelayed(backPressedTimeoutAction, BACK_PRESSED_DELAY);
+//	}
 
 	/**
 	 * Activity is about to become visible - let's start the music
