@@ -7,11 +7,11 @@
     tools:context="com.sound.app.LoginActivity">
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="youtube"
+        android:text="Recommendation List"
         android:id="@+id/youtubeBtn"
-        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/weatherinfo"
         android:layout_centerHorizontal="true" />
 
     <TextView
@@ -24,11 +24,29 @@
         android:layout_centerHorizontal="true" />
 
     <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:id="@+id/weatherimg"
+        android:layout_below="@+id/textView"
+        android:layout_centerHorizontal="true"
+        android:focusable="false"
+        android:focusableInTouchMode="false" />
+
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/imageView2"
-        android:layout_below="@+id/textView"
-        android:layout_centerHorizontal="true" />
-
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/weatherinfo"
+        android:layout_below="@+id/weatherimg"
+        android:layout_centerHorizontal="true"
+        android:text="test" />
+    <ListView
+        android:id="@+id/list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/youtubeBtn"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+    </ListView>
 
 </RelativeLayout>

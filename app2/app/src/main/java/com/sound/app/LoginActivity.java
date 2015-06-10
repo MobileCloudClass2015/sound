@@ -8,8 +8,13 @@ import android.content.SharedPreferences;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.cocosw.bottomsheet.BottomSheet;
@@ -17,10 +22,14 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonPrimitive;
+import com.sound.app.util.BackPressCloseHandler;
 import com.sound.app.weather.GpsLocationInfo;
 import com.sound.app.weather.Weather;
+import com.sound.app.weather.WeatherAsyncTask;
 import com.sound.app.weather.WeatherHttpClient;
 import com.sound.app.youtube.VideoListDemoActivity;
+
+import java.util.ArrayList;
 
 public class LoginActivity extends Activity {
 
@@ -28,7 +37,12 @@ public class LoginActivity extends Activity {
 
     private BottomSheet bottomSheet;
     private Button youtubeBtn;
+    private GpsLocationInfo gpsLocationInfo;
+    private BackPressCloseHandler backPressCloseHandler;
+    private ImageView imgview;
+    private TextView weatherinfo;
 
+    ArrayList<Content> manylist;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +66,7 @@ public class LoginActivity extends Activity {
                 }
             }
         }).build();
+        this.backPressCloseHandler = new BackPressCloseHandler(this);
 
         this.youtubeBtn=(Button)findViewById(R.id.youtubeBtn);
         this.youtubeBtn.setOnClickListener(new View.OnClickListener() {
@@ -62,55 +77,84 @@ public class LoginActivity extends Activity {
                 finish();
             }
         });
+
+        this.gpsLocationInfo = new GpsLocationInfo(LoginActivity.this);
+        if(!this.gpsLocationInfo.isGetLocation()){
+            this.gpsLocationInfo.showSettingsAlert();
+        }
+        imgview=(ImageView)findViewById(R.id.weatherimg);
+        weatherinfo=(TextView)findViewById(R.id.weatherinfo);
+        new WeatherAsyncTask(getApplicationContext(), this.gpsLocationInfo, this.imgview, this.weatherinfo).execute();
+
+        manylist=new ArrayList<Content>();
+        Content con;
+        con=new Content(R.drawable.ic_launcher, "김연상"); manylist.add(con);
+        con=new Content(R.drawable.ic_launcher, "롤로"); manylist.add(con);
+        con=new Content(R.drawable.ic_launcher, "루리"); manylist.add(con);
+
+        ConlistAdapter ConAdapter=new ConlistAdapter(this,R.layout.context,manylist);
+
+        ListView conlist;
+        conlist=(ListView)findViewById(R.id.list);
+        conlist.setAdapter(ConAdapter);
     }
 
-    public class WeatherAsyncTask extends AsyncTask<Void, Void, Weather> {
-
-        private GpsLocationInfo gpsLocationInfo;
-        private Context context;
-        private TextView textView;
-
-        public WeatherAsyncTask(Context context, GpsLocationInfo gpsLocationInfo, TextView textView) {
-            this.gpsLocationInfo = gpsLocationInfo;
-            this.context = context;
-            this.textView = textView;
-        }
-
-        @Override
-        protected Weather doInBackground(Void... params) {
-            WeatherHttpClient weatherHttpClient = new WeatherHttpClient();
-
-            String text = weatherHttpClient.getWeatherData(this.gpsLocationInfo.getLatitude(), this.gpsLocationInfo.getLongitude());
-            JsonParser parser = new JsonParser();
-            JsonObject object = (JsonObject) parser.parse(text);
-            JsonArray weathers = object.getAsJsonArray("weather");
-
-            if(weathers.size() > 0){
-                JsonObject weather = (JsonObject) weathers.get(0);
-                JsonPrimitive main = weather.getAsJsonPrimitive("main");
-                JsonPrimitive description = weather.getAsJsonPrimitive("description");
-                JsonPrimitive icon = weather.getAsJsonPrimitive("icon");
-                byte[] image = weatherHttpClient.getImage(icon.toString());
-                return new Weather(main.toString(), description.toString(), icon.toString());
-            }
-
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Weather getWeather) {
-            if(getWeather == null){
-                return;
-            }
-
-            if(textView != null) {
-                this.textView.setText(getWeather.toString());
-            }
-        }
-    }
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        this.gpsLocationInfo.stopUsingGPS();
     }
 
+    @Override
+    public void onBackPressed() {
+        this.backPressCloseHandler.onBackPressed(this.bottomSheet);
+    }
+}
+class Content {
+    Content(int aicon, String atext) {
+        icon=aicon;
+        text=atext;
+    }
+    int icon;
+    String text;
+}
+
+class ConlistAdapter extends BaseAdapter {
+    Context lefticon;
+    LayoutInflater Inflater;
+    ArrayList<Content> asrc;
+    int layout;
+
+    public ConlistAdapter(Context context, int alayout, ArrayList<Content> bsrc) {
+        lefticon=context;
+        Inflater=(LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        asrc=bsrc;
+        layout=alayout;
+    }
+
+    public int getCount() {
+        return asrc.size();
+    }
+
+    public String getItem(int position) {
+        return asrc.get(position).text;
+    }
+
+    public long getItemId(int position) {
+        return position;
+    }
+
+    public View getView(int position, View convertView, ViewGroup parent) {
+        final int pos=position;
+        if(convertView==null) {
+            convertView=Inflater.inflate(layout, parent, false);
+        }
+        ImageView img=(ImageView)convertView.findViewById(R.id.img);
+        img.setImageResource(asrc.get(position).icon);
+
+        TextView txt=(TextView)convertView.findViewById(R.id.text);
+        txt.setText(asrc.get(position).text);
+
+        return convertView;
+    }
 }

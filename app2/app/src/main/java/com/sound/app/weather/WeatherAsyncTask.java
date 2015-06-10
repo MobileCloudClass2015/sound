@@ -1,7 +1,11 @@
 package com.sound.app.weather;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
+import android.util.Log;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.gson.JsonArray;
@@ -9,19 +13,25 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonPrimitive;
 
+
 /**
  * Created by Francis on 2015-06-07.
  */
 public class WeatherAsyncTask extends AsyncTask<Void, Void, Weather> {
 
+    private static final String TAG = "WeatherAsyncTask";
+    byte[] image;
     private GpsLocationInfo gpsLocationInfo;
     private Context context;
-    private TextView textView;
+    ImageView weatherimg;
+    Bitmap bitmap;
+    TextView weatherinfo;
 
-    public WeatherAsyncTask(Context context, GpsLocationInfo gpsLocationInfo, TextView textView) {
+    public WeatherAsyncTask(Context context, GpsLocationInfo gpsLocationInfo, ImageView weatherimg, TextView weatherinfo) {
         this.gpsLocationInfo = gpsLocationInfo;
         this.context = context;
-        this.textView = textView;
+        this.weatherimg=weatherimg;
+        this.weatherinfo=weatherinfo;
     }
 
     @Override
@@ -38,7 +48,7 @@ public class WeatherAsyncTask extends AsyncTask<Void, Void, Weather> {
             JsonPrimitive main = weather.getAsJsonPrimitive("main");
             JsonPrimitive description = weather.getAsJsonPrimitive("description");
             JsonPrimitive icon = weather.getAsJsonPrimitive("icon");
-            byte[] image = weatherHttpClient.getImage(icon.toString());
+            image = weatherHttpClient.getImage(icon.toString());
             return new Weather(main.toString(), description.toString(), icon.toString());
         }
 
@@ -51,8 +61,13 @@ public class WeatherAsyncTask extends AsyncTask<Void, Void, Weather> {
             return;
         }
 
-        if(textView != null) {
-            this.textView.setText(getWeather.toString());
+        Log.d(TAG, getWeather.toString());
+        if (image.length > 0) {
+                // ~ TODO
+            this.bitmap= BitmapFactory.decodeByteArray(image, 0, image.length);
+            this.weatherimg.setImageBitmap(bitmap);
         }
+        if(weatherinfo!=null)
+            this.weatherinfo.setText(getWeather.toString());
     }
 }
