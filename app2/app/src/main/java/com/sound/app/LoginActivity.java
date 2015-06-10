@@ -70,7 +70,6 @@ public class LoginActivity extends Activity {
             public void onClick(View v) {
                 Intent intent = new Intent(LoginActivity.this, VideoListDemoActivity.class);
                 startActivity(intent);
-                finish();
             }
         });
 
