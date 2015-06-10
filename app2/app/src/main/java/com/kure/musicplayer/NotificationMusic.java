@@ -82,75 +82,45 @@ public class NotificationMusic extends NotificationSimple {
 		if (this.service == null)
 			this.service = service;
 
-
-
-		// Intent that launches the "Now Playing" Activity
 		Intent notifyIntent = new Intent(context, ActivityNowPlaying.class);
 		notifyIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
-		// Letting the Intent be executed later by other application.
-		PendingIntent pendingIntent = PendingIntent.getActivity
-				(context,
-                        0,
-                        notifyIntent,
-                        PendingIntent.FLAG_UPDATE_CURRENT);
+		PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, notifyIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-
-
-		// Setting our custom appearance for the notification
 		notificationView = new RemoteViews(kMP.packageName, R.layout.notification);
 
-		// Manually settings the buttons and text
-		// (ignoring the defaults on the XML)
 		notificationView.setImageViewResource(R.id.notification_button_play, R.drawable.pause);
 		notificationView.setImageViewResource(R.id.notification_button_skip, R.drawable.skip);
 		notificationView.setTextViewText(R.id.notification_text_title, song.getTitle());
 		notificationView.setTextViewText(R.id.notification_text_artist, song.getArtist());
 
-
-
-		// On the notification we have two buttons - Play and Skip
-		// Here we make sure the class `NotificationButtonHandler`
-		// gets called when user selects one of those.
-		//
-		// First, building the play button and attaching it.
 		Intent buttonPlayIntent = new Intent(context, NotificationPlayButtonHandler.class);
 		buttonPlayIntent.putExtra("action", "togglePause");
 
 		PendingIntent buttonPlayPendingIntent = PendingIntent.getBroadcast(context, 0, buttonPlayIntent, 0);
 		notificationView.setOnClickPendingIntent(R.id.notification_button_play, buttonPlayPendingIntent);
 
-		// And now, building and attaching the Skip button.
 		Intent buttonSkipIntent = new Intent(context, NotificationSkipButtonHandler.class);
 		buttonSkipIntent.putExtra("action", "skip");
 
 		PendingIntent buttonSkipPendingIntent = PendingIntent.getBroadcast(context, 0, buttonSkipIntent, 0);
 		notificationView.setOnClickPendingIntent(R.id.notification_button_skip, buttonSkipPendingIntent);
 
-
-
-		// Finally... Actually creating the Notification
 		notificationBuilder = new Notification.Builder(context);
 
 		notificationBuilder.setContentIntent(pendingIntent)
 		                   .setSmallIcon(R.drawable.ic_launcher_white)
-		                   .setTicker("kMP: Playing '" + song.getTitle() + "' from '" + song.getArtist() + "'")
+		                   .setTicker("Playing '" + song.getTitle() + "' from '" + song.getArtist() + "'")
 		                   .setOngoing(true)
 		                   .setContentTitle(song.getTitle())
 		                   .setContentText(song.getArtist())
 		                   .setContent(notificationView);
 
 		Notification notification = notificationBuilder.build();
-
-
-
 		notificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
-//		notificationManager.notify(NOTIFICATION_ID, notification);
-
-		// Sets the notification to run on the foreground.
-		// (why not the former commented line?)
 		service.startForeground(NOTIFICATION_ID, notification);
 	}
+
 
 	/**
 	 * Called when user clicks the "play/pause" button on the on-going system Notification.
@@ -180,18 +150,12 @@ public class NotificationMusic extends NotificationSimple {
 		if ((notificationView == null) || (notificationBuilder == null))
 			return;
 
-		int iconID = ((isPaused)?
-	                  R.drawable.play :
-	                  R.drawable.pause);
+		int iconID = ((isPaused) ? R.drawable.play : R.drawable.pause);
 
 		notificationView.setImageViewResource(R.id.notification_button_play, iconID);
 
 		notificationBuilder.setContent(notificationView);
 
-//		notificationManager.notify(NOTIFICATION_ID, notificationBuilder.build());
-
-		// Sets the notification to run on the foreground.
-		// (why not the former commented line?)
 		service.startForeground(NOTIFICATION_ID, notificationBuilder.build());
 	}
 
@@ -211,4 +175,6 @@ public class NotificationMusic extends NotificationSimple {
 		NotificationManager manager = (NotificationManager)c.getSystemService(Context.NOTIFICATION_SERVICE);
 		manager.cancelAll();
 	}
+
+
 }
