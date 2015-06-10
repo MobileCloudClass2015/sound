@@ -19,6 +19,7 @@ import com.kure.musicplayer.NotificationMusic;
 import com.kure.musicplayer.helpers.SingleToast;
 import com.kure.musicplayer.kMP;
 import com.sound.app.R;
+import com.sound.app.util.BackPressCloseHandler;
 
 import java.util.ArrayList;
 
@@ -54,8 +55,6 @@ public class ActivityMenuMain extends ActivityMaster
 	/**
 	 * ID we'll use when calling the settings window.
 	 * It'll say if the user changed theme or not.
-	 *
-	 * @see onActivityResult()
 	 */
 	static final int USER_CHANGED_THEME = 1;
 
@@ -63,19 +62,9 @@ public class ActivityMenuMain extends ActivityMaster
 	// press twice to exit the program
 	// (showing a message when pressing the first time).
 
-	private boolean backPressedOnce = false;
-	private Handler backPressedHandler = new Handler();
 
 	/** How long to wait to disable double-pressing to quit */
 	private static final int BACK_PRESSED_DELAY = 2000;
-
-	/** Action that actually disables double-pressing to quit */
-	private final Runnable backPressedTimeoutAction = new Runnable() {
-		@Override
-		public void run() {
-			backPressedOnce = false;
-		}
-	};
 
 	/**
 	 * Called when the activity is created for the first time.
@@ -208,9 +197,6 @@ public class ActivityMenuMain extends ActivityMaster
 	protected void onDestroy() {
 		super.onDestroy();
 
-		if (backPressedHandler != null)
-			backPressedHandler.removeCallbacks(backPressedTimeoutAction);
-
 		// Need to clear all the items otherwise
 		// they'll keep adding up.
 		items.clear();
@@ -220,34 +206,6 @@ public class ActivityMenuMain extends ActivityMaster
 
 		kMP.stopMusicService(this);
 	}
-
-	/**
-	 * We're overriding the default behavior for when the
-	 * user presses the back button.
-	 *
-	 * This way, it will show "Please click BACK again to exit"
-     * and if the user presses again it will quit.
-     *
-     * Thanks, guys at StackOverflow:
-     * http://stackoverflow.com/a/13578600
-	 */
-    /* Remove Backpressed btn*/
-//	@Override
-//	public void onBackPressed() {
-//
-//        if (this.backPressedOnce) {
-//            // Default behavior, quit it
-//            super.onBackPressed();
-//			kMP.forceExit(this);
-//            return;
-//        }
-//
-//        this.backPressedOnce = true;
-//
-//		SingleToast.show(this, getString(R.string.menu_main_back_to_exit), Toast.LENGTH_SHORT);
-//
-//		backPressedHandler.postDelayed(backPressedTimeoutAction, BACK_PRESSED_DELAY);
-//	}
 
 	/**
 	 * Activity is about to become visible - let's start the music
@@ -287,7 +245,7 @@ public class ActivityMenuMain extends ActivityMaster
 				return ActivityMenuMain.this.getString(R.string.menu_main_scanning_ok);
 			}
 			catch (Exception e) {
-				Log.e("Couldn't execute background task", e.toString());
+				Log.e("ActivitMenuMain", "Couldn't execute background task", e);
 				e.printStackTrace();
 				return ActivityMenuMain.this.getString(R.string.menu_main_scanning_not_ok);
 			}
