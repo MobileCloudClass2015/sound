@@ -4,15 +4,21 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.ListView;
 
 import com.sound.app.R;
 import com.sound.app.dto.MyPlayMap;
 import com.sound.app.dto.Sound;
+import com.sound.app.dto.Track;
+import com.sound.app.util.Content;
+import com.sound.app.util.ContentListAdapter;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -24,8 +30,14 @@ public class MyListAsyncTask extends AsyncTask<Void, Void, MyPlayMap> {
 
     private Context context;
 
-    public MyListAsyncTask(Context context) {
+    private ListView listView;
+
+    private Track track;
+
+    public MyListAsyncTask(Context context, ListView listView, Track track) {
         this.context = context;
+        this.listView = listView;
+        this.track = track;
     }
 
     @Override
@@ -68,5 +80,18 @@ public class MyListAsyncTask extends AsyncTask<Void, Void, MyPlayMap> {
             return;
         }
         Log.d(TAG, myPlayMap.toString());
+
+        List<Sound> sounds = myPlayMap.getSounds();
+        ArrayList<Content> list = new ArrayList<Content>();
+        if(sounds != null && sounds.size() > 0){
+            for(Sound sound : sounds) {
+                list.add(new Content(R.drawable.ic_launcher, sound.getArtist() + " " + sound.getTitle()));
+            }
+        }
+        ContentListAdapter contentListAdapter = new ContentListAdapter(context, R.layout.context, list);
+        listView.setAdapter(contentListAdapter);
+
+        this.track = myPlayMap.getTrack();
+        Log.d(TAG, ""+this.track);
     }
 }

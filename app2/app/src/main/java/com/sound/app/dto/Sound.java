@@ -22,6 +22,8 @@ public class Sound {
     private String weatherDescription;
     
     private String timeStamp;
+    
+    private String count;
 
     public Sound() {
 
@@ -109,6 +111,14 @@ public class Sound {
         this.weatherDescription = weatherDescription;
     }
 
+    public String getCount() {
+        return count;
+    }
+
+    public void setCount(String count) {
+        this.count = count;
+    }
+
     @Override
     public String toString() {
         return "Sound{" +
@@ -121,6 +131,7 @@ public class Sound {
                 ", weatherMain='" + weatherMain + '\'' +
                 ", weatherDescription='" + weatherDescription + '\'' +
                 ", timeStamp='" + timeStamp + '\'' +
+                ", count='" + count + '\'' +
                 '}';
     }
 }

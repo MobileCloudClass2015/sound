@@ -1,16 +1,12 @@
 package com.sound.app;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -18,12 +14,12 @@ import android.widget.TextView;
 
 import com.cocosw.bottomsheet.BottomSheet;
 import com.kure.musicplayer.activities.ActivityMenuMain;
+import com.sound.app.dto.Track;
+import com.sound.app.recommend.MyListAsyncTask;
 import com.sound.app.util.BackPressCloseHandler;
 import com.sound.app.weather.GpsLocationInfo;
 import com.sound.app.weather.WeatherAsyncTask;
 import com.sound.app.youtube.VideoListDemoActivity;
-
-import java.util.ArrayList;
 
 public class LoginActivity extends Activity {
 
@@ -33,9 +29,11 @@ public class LoginActivity extends Activity {
     private Button youtubeBtn;
     private GpsLocationInfo gpsLocationInfo;
     private BackPressCloseHandler backPressCloseHandler;
+
     private ImageView imgview;
     private TextView weatherinfo;
-    ArrayList<Content> manylist;
+    private ListView listView;
+    private Track track;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,17 +82,11 @@ public class LoginActivity extends Activity {
         weatherinfo=(TextView)findViewById(R.id.weatherinfo);
         new WeatherAsyncTask(getApplicationContext(), this.gpsLocationInfo, this.imgview, this.weatherinfo).execute();
 
-        manylist=new ArrayList<Content>();
-        Content con;
-        con=new Content(R.drawable.ic_launcher, "김연상"); manylist.add(con);
-        con=new Content(R.drawable.ic_launcher, "롤로"); manylist.add(con);
-        con=new Content(R.drawable.ic_launcher, "루리"); manylist.add(con);
+        listView = (ListView) findViewById(R.id.list);
 
-        ConlistAdapter ConAdapter=new ConlistAdapter(this,R.layout.context,manylist);
+        new MyListAsyncTask(LoginActivity.this, listView, track).execute();
 
-        ListView conlist;
-        conlist=(ListView)findViewById(R.id.list);
-        conlist.setAdapter(ConAdapter);
+        // TODO track 은 추천할 track 이름
     }
 
     @Override
@@ -106,55 +98,5 @@ public class LoginActivity extends Activity {
     @Override
     public void onBackPressed() {
         this.backPressCloseHandler.onBackPressed(this.bottomSheet);
-    }
-}
-
-class Content {
-    Content(int aicon, String atext) {
-        icon=aicon;
-        text=atext;
-    }
-    int icon;
-    String text;
-}
-
-class ConlistAdapter extends BaseAdapter {
-
-    Context lefticon;
-    LayoutInflater Inflater;
-    ArrayList<Content> asrc;
-    int layout;
-
-    public ConlistAdapter(Context context, int alayout, ArrayList<Content> bsrc) {
-        lefticon=context;
-        Inflater=(LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        asrc=bsrc;
-        layout=alayout;
-    }
-
-    public int getCount() {
-        return asrc.size();
-    }
-
-    public String getItem(int position) {
-        return asrc.get(position).text;
-    }
-
-    public long getItemId(int position) {
-        return position;
-    }
-
-    public View getView(int position, View convertView, ViewGroup parent) {
-        final int pos=position;
-        if(convertView==null) {
-            convertView=Inflater.inflate(layout, parent, false);
-        }
-        ImageView img=(ImageView)convertView.findViewById(R.id.img);
-        img.setImageResource(asrc.get(position).icon);
-
-        TextView txt=(TextView)convertView.findViewById(R.id.text);
-        txt.setText(asrc.get(position).text);
-
-        return convertView;
     }
 }
