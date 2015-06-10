@@ -22,9 +22,12 @@ import android.app.Activity;
 import android.app.ListFragment;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -48,6 +51,13 @@ import com.google.android.youtube.player.YouTubeThumbnailLoader;
 import com.google.android.youtube.player.YouTubeThumbnailLoader.ErrorReason;
 import com.google.android.youtube.player.YouTubeThumbnailView;
 import com.sound.app.R;
+import com.sound.app.common.App;
+import com.sound.app.dto.MyPlayMap;
+import com.sound.app.dto.Track;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.ResourceAccessException;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -91,8 +101,7 @@ public final class VideoListDemoActivity extends Activity implements OnFullscree
     setContentView(R.layout.video_list_demo);
 
     listFragment = (VideoListFragment) getFragmentManager().findFragmentById(R.id.list_fragment);
-    videoFragment =
-        (VideoFragment) getFragmentManager().findFragmentById(R.id.video_fragment_container);
+    videoFragment = (VideoFragment) getFragmentManager().findFragmentById(R.id.video_fragment_container);
 
     videoBox = findViewById(R.id.video_box);
     closeButton = findViewById(R.id.close_button);
@@ -205,18 +214,19 @@ public final class VideoListDemoActivity extends Activity implements OnFullscree
    */
   public static final class VideoListFragment extends ListFragment {
 
-    private static final List<VideoEntry> VIDEO_LIST;
-    static {
-      List<VideoEntry> list = new ArrayList<VideoEntry>();
-      list.add(new VideoEntry("YouTube Collection", "Y_UmWdcTrrc"));
-      list.add(new VideoEntry("GMail Tap", "1KhZKNZO8mQ"));
-      list.add(new VideoEntry("Chrome Multitask", "UiLSiqyDf4Y"));
-      list.add(new VideoEntry("Google Fiber", "re0VRK6ouwI"));
-      list.add(new VideoEntry("Autocompleter", "blB_X38YSxQ"));
-      list.add(new VideoEntry("GMail Motion", "Bu927_ul_X0"));
-      list.add(new VideoEntry("Translate for Animals", "3I24bSteJpw"));
-      VIDEO_LIST = Collections.unmodifiableList(list);
-    }
+    private static List<VideoEntry> videoEntryList= new ArrayList<>();
+
+//      static {
+//          List<VideoEntry> list = new ArrayList<VideoEntry>();
+//          list.add(new VideoEntry("YouTube Collection", "Y_UmWdcTrrc"));
+//          list.add(new VideoEntry("GMail Tap", "1KhZKNZO8mQ"));
+//          list.add(new VideoEntry("Chrome Multitask", "UiLSiqyDf4Y"));
+//          list.add(new VideoEntry("Google Fiber", "re0VRK6ouwI"));
+//          list.add(new VideoEntry("Autocompleter", "blB_X38YSxQ"));
+//          list.add(new VideoEntry("GMail Motion", "Bu927_ul_X0"));
+//          list.add(new VideoEntry("Translate for Animals", "3I24bSteJpw"));
+//          videoEntryList = Collections.unmodifiableList(list);
+//      }
 
     private PageAdapter adapter;
     private View videoBox;
@@ -224,7 +234,8 @@ public final class VideoListDemoActivity extends Activity implements OnFullscree
     @Override
     public void onCreate(Bundle savedInstanceState) {
       super.onCreate(savedInstanceState);
-      adapter = new PageAdapter(getActivity(), VIDEO_LIST);
+      new YoutubeTaskAsyncTask().execute();
+    adapter = new PageAdapter(getActivity(), videoEntryList);
     }
 
     @Override
@@ -238,7 +249,7 @@ public final class VideoListDemoActivity extends Activity implements OnFullscree
 
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
-      String videoId = VIDEO_LIST.get(position).videoId;
+      String videoId = videoEntryList.get(position).videoId;
 
       VideoFragment videoFragment =
           (VideoFragment) getFragmentManager().findFragmentById(R.id.video_fragment_container);
@@ -269,6 +280,64 @@ public final class VideoListDemoActivity extends Activity implements OnFullscree
     public void setLabelVisibility(boolean visible) {
       adapter.setLabelVisibility(visible);
     }
+
+      private class YoutubeTaskAsyncTask extends AsyncTask<Void, Void, MyPlayMap> {
+
+          private static final String TAG = "YoutubeTaskAsyncTask";
+
+          @Override
+          protected MyPlayMap doInBackground(Void... params) {
+
+              SharedPreferences pref = App.app_context.getSharedPreferences("userInfo", 0);
+              String id = pref.getString("id", "");
+              String url = App.app_context.getString(R.string.contextPath) + "/recommend/myList/"+id;
+
+              Boolean isSuccess = false;
+              MyPlayMap myPlayMap =  null;
+              try {
+                  while (!isSuccess) {
+                      try {
+                          myPlayMap = postTemplate(url);
+                          if (myPlayMap.getResult()) {
+                              isSuccess = true;
+                          }
+                      } catch (ResourceAccessException e) {
+                          Log.e("Error", e.getMessage(), e);
+                          isSuccess = false;
+                      }
+                  }
+              }catch (Exception e) {
+                  Log.e("Error", e.getMessage(), e);
+                  myPlayMap.setResult(false);
+              }
+              return myPlayMap;
+          }
+
+          private MyPlayMap postTemplate(String url){
+              RestTemplate restTemplate = new RestTemplate();
+              ResponseEntity<MyPlayMap> responseEntity = restTemplate.postForEntity(url, null, MyPlayMap.class);
+              return responseEntity.getBody();
+          }
+
+          @Override
+          protected void onPostExecute(MyPlayMap myPlayMap) {
+              if(myPlayMap == null || !myPlayMap.getResult()){
+                  return;
+              }
+
+              Log.d(TAG, "Tracks " + myPlayMap.getTracks());
+
+              for(Track track : myPlayMap.getTracks()){
+                  String text = track.getArtist()+""+track.getTitle();
+                  String videoId = track.getUrl().replace("https://www.youtube.com/watch?v=", "");
+                  Log.d(TAG, "Track text " + text + " videoId " + videoId);
+                  videoEntryList.add(new VideoEntry(text, videoId));
+              }
+              adapter = new PageAdapter(getActivity(), videoEntryList);
+              setListAdapter(adapter);
+          }
+
+      }
 
   }
 
