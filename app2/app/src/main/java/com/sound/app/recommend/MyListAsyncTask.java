@@ -8,6 +8,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -36,9 +37,12 @@ public class MyListAsyncTask extends AsyncTask<Void, Void, MyPlayMap> {
 
     private ListView listView;
 
-    public MyListAsyncTask(Context context, ListView listView) {
+    private AdapterView.OnItemClickListener mItemClickListener;
+
+    public MyListAsyncTask(Context context, ListView listView, AdapterView.OnItemClickListener itemClickListener) {
         this.context = context;
         this.listView = listView;
+        this.mItemClickListener=itemClickListener;
     }
 
     @Override
@@ -66,6 +70,7 @@ public class MyListAsyncTask extends AsyncTask<Void, Void, MyPlayMap> {
             Log.e("Error", e.getMessage(), e);
             myPlayMap.setResult(false);
         }
+
         return myPlayMap;
     }
 
@@ -101,6 +106,8 @@ public class MyListAsyncTask extends AsyncTask<Void, Void, MyPlayMap> {
         }
         final StableArrayAdapter adapter = new StableArrayAdapter(context, android.R.layout.simple_list_item_1, list);
         listView.setAdapter(adapter);
+        listView.setOnItemClickListener(mItemClickListener);
+
     }
 
     private class StableArrayAdapter extends ArrayAdapter<String> {
@@ -146,6 +153,7 @@ public class MyListAsyncTask extends AsyncTask<Void, Void, MyPlayMap> {
         public boolean hasStableIds() {
             return true;
         }
+
 
     }
 }
