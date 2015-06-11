@@ -14,7 +14,6 @@ import android.widget.TextView;
 import com.sound.app.R;
 import com.sound.app.dto.MyPlayMap;
 import com.sound.app.dto.Sound;
-import com.sound.app.dto.Track;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.ResourceAccessException;
@@ -110,7 +109,7 @@ public class MyListAsyncTask extends AsyncTask<Void, Void, MyPlayMap> {
 
             TextView textView=(TextView) view.findViewById(android.R.id.text1);
             /*YOUR CHOICE OF COLOR*/
-            textView.setTextColor(Color.BLACK);
+            textView.setTextColor(Color.WHITE);
             textView.setTextSize(12);
             return view;
         }
