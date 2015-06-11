@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -21,6 +22,7 @@ import com.sound.app.util.BackPressCloseHandler;
 import com.sound.app.weather.GpsLocationInfo;
 import com.sound.app.weather.Weather;
 import com.sound.app.weather.WeatherAsyncTask;
+import com.sound.app.youtube.MusicListVideo;
 import com.sound.app.youtube.VideoListDemoActivity;
 
 public class LoginActivity extends Activity {
@@ -96,9 +98,15 @@ public class LoginActivity extends Activity {
 
         listView = (ListView) findViewById(R.id.list);
 
-        new MyListAsyncTask(LoginActivity.this, listView).execute();
+        new MyListAsyncTask(LoginActivity.this, listView, mItemClickListener).execute();
 
     }
+    AdapterView.OnItemClickListener mItemClickListener= new AdapterView.OnItemClickListener() {
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            Intent intent = new Intent(LoginActivity.this, MusicListVideo.class);
+            startActivity(intent);
+        }
+    };
 
     @Override
     protected void onDestroy() {

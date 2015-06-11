@@ -52,6 +52,11 @@
             android:name="com.sound.app.youtube.VideoListDemoActivity"
             android:configChanges="orientation|keyboardHidden|screenSize">
         </activity>
+        <activity
+            android:label="@string/videolist_demo_name"
+            android:name="com.sound.app.youtube.MusicListVideo"
+            android:configChanges="orientation|keyboardHidden|screenSize">
+        </activity>
 
         <activity
             android:name="com.kure.musicplayer.activities.ActivityMenuMusic"
