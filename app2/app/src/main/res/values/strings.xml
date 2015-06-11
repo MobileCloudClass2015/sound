@@ -127,7 +127,7 @@
     <string name="service_music_play_headphone_on">Headphone connected (%1$s)</string>
     <string name="service_music_play_headphone_off">Headphone disconnected</string>
     <string name="error_player">There was an error initializing the YouTubePlayer (%1$s)</string>
-    <string name="videolist_demo_name">Video List</string>
+    <string name="videolist_demo_name">Recommend Video List</string>
 
     <!-- Values for the Settings Activity
      -->
