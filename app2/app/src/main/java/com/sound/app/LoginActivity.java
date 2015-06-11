@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -20,7 +19,6 @@ import com.kure.musicplayer.activities.ActivityMenuMain;
 import com.sound.app.recommend.MyListAsyncTask;
 import com.sound.app.util.BackPressCloseHandler;
 import com.sound.app.weather.GpsLocationInfo;
-import com.sound.app.weather.Weather;
 import com.sound.app.weather.WeatherAsyncTask;
 import com.sound.app.youtube.MusicListVideo;
 import com.sound.app.youtube.VideoListDemoActivity;

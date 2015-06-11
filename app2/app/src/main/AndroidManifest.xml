@@ -50,11 +50,12 @@
         <activity
             android:theme="@style/AppTheme"
             android:label="@string/videolist_demo_name"
-            android:theme="@style/AppTheme"
             android:name="com.sound.app.youtube.VideoListDemoActivity"
             android:configChanges="orientation|keyboardHidden|screenSize">
         </activity>
+
         <activity
+            android:theme="@style/AppTheme"
             android:label="@string/videolist_demo_name"
             android:name="com.sound.app.youtube.MusicListVideo"
             android:configChanges="orientation|keyboardHidden|screenSize">
