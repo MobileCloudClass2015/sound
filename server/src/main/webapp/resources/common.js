@@ -61,7 +61,6 @@ $(function(){
             var ul = $('#bonacell_search_recommend_result');
 
             ul.html('');
-            console.log(tracks, trackLi);
             var trackLi = $('<li>');
             trackLi.html(track.title + ' ' + track.trackId +' <a href="'+track.url+'">YouTube</a>');
             trackLi.addClass('highlight');
@@ -71,6 +70,34 @@ $(function(){
                 var li = $('<li>');
                 track = tracks[i];
                 
+                li.html(track.title + ' ' + track.trackId + ' '+track.score +' <a href="'+track.url+'">YouTube</a>');
+                ul.append(li);
+            }
+        });
+    });
+
+    $('#bonalcell_recommend_weather_btn').on('click', function(){
+        var url = contextPath+'/recommend/time/weather';
+        var json = {
+            id : $('#recommend_id').val(),
+            weatherMain : $('#recommend_id').val()
+        };
+
+        $.postJSON(url, json, function(result){
+            var tracks = result.tracks;
+            var track = result.track;
+            var ul = $('#bonacell_recommend_weather_result');
+
+            ul.html('');
+            var trackLi = $('<li>');
+            trackLi.html(track.title + ' ' + track.trackId +' <a href="'+track.url+'">YouTube</a>');
+            trackLi.addClass('highlight');
+            ul.append(trackLi);
+
+            for(var i=0; i<tracks.length; i++){
+                var li = $('<li>');
+                track = tracks[i];
+
                 li.html(track.title + ' ' + track.trackId + ' '+track.score +' <a href="'+track.url+'">YouTube</a>');
                 ul.append(li);
             }

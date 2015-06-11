@@ -130,7 +130,7 @@
     <select id="selectMaxCountAll" parameterType="Sound" resultType="Sound">
         SELECT
             `soundPn` AS `pn`, COUNT(`soundPn`) AS `count`
-        F ROM
+        FROM
             `sound_time_stamp` AS sts,
             `sound` AS s
         WHERE

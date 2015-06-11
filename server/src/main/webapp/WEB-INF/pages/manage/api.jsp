@@ -87,11 +87,34 @@
 
 			<button type="button" id="bonalcell_search_recommend_btn" class="orangeButton">Search Recommend</button>
 
-			<span id="recommendListResult"></span>
-			
 			<ul class="common_result_wrap" id="bonacell_search_recommend_result">
 			</ul>
 			
+		</article>
+
+		<article class="common_article">
+
+			<header>
+				<h2>Recommend Weather Time</h2>
+				<span>"/recommend/time/weather"</span>
+			</header>
+
+			<ul class="common_input_wrap">
+				<li>
+					<label for="recommend_id">GOOGLE_OAUTH_ID</label>
+					<input type="text" id="recommend_id" value="110728430166896073789"/>
+				</li>
+				<li>
+					<label for="recommend_weather">ARTIST</label>
+					<input type="text" id="recommend_weather" value="Rain"/>
+				</li>
+			</ul>
+
+			<button type="button" id="bonalcell_recommend_weather_btn" class="orangeButton">Recommend Weather</button>
+
+			<ul class="common_result_wrap" id="bonacell_recommend_weather_result">
+			</ul>
+
 		</article>
 		
 	</section>

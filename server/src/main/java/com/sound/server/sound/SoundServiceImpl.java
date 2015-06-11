@@ -50,7 +50,7 @@ public class SoundServiceImpl extends SqlSessionDaoSupport implements SoundServi
         }
         // ~ 다시 정보가 없을 경우 해당 노래가 없을 경우 전체 노래에 대한 노래를 추천한다.
         if (getSound == null || getSound.getPn() == null || getSound.getPn().equals(0)){
-            getSound = getSqlSession().selectOne("sound.selectMaxCountAll.", sound);
+            getSound = getSqlSession().selectOne("sound.selectMaxCountAll", sound);
         }
 
         if (getSound == null || getSound.getPn() == null || getSound.getPn().equals(0)){
