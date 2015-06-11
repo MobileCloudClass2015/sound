@@ -1,6 +1,7 @@
 package com.sound.app.recommend;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.AsyncTask;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 import com.sound.app.R;
 import com.sound.app.dto.MyPlayMap;
 import com.sound.app.dto.Sound;
+import com.sound.app.youtube.ReommendSeachActivity;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.ResourceAccessException;
@@ -73,18 +75,26 @@ public class MyListAsyncTask extends AsyncTask<Void, Void, MyPlayMap> {
         return responseEntity.getBody();
     }
 
+    private List<String> artists;
+
+    private List<String> titles;
+
     @Override
     protected void onPostExecute(MyPlayMap myPlayMap) {
         if(myPlayMap == null || !myPlayMap.getResult()){
             return;
         }
         Log.d(TAG, myPlayMap.toString());
+        artists = new ArrayList<>();
+        titles = new ArrayList<>();
 
         List<Sound> sounds = myPlayMap.getSounds();
         List<String> list = new ArrayList<String>();
         if(sounds != null && sounds.size() > 0){
             for(Sound sound : sounds) {
                 list.add(sound.getArtist() + " " + sound.getTitle());
+                artists.add(sound.getArtist());
+                titles.add(sound.getTitle());
             }
         }else{
             list.add("Data doesn't exist");
@@ -103,14 +113,26 @@ public class MyListAsyncTask extends AsyncTask<Void, Void, MyPlayMap> {
                 mIdMap.put(objects.get(i), i);
             }
         }
+
         @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
+        public View getView(final int position, View convertView, ViewGroup parent) {
             View view =super.getView(position, convertView, parent);
 
             TextView textView=(TextView) view.findViewById(android.R.id.text1);
             /*YOUR CHOICE OF COLOR*/
             textView.setTextColor(Color.WHITE);
             textView.setTextSize(12);
+
+            textView.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context, ReommendSeachActivity.class);
+                    intent.putExtra("title", titles.get(position));
+                    intent.putExtra("artist", artists.get(position));
+                    context.startActivity(intent);
+                }
+            });
+
             return view;
         }
 
