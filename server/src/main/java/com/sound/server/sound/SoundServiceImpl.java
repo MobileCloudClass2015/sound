@@ -43,16 +43,24 @@ public class SoundServiceImpl extends SqlSessionDaoSupport implements SoundServi
     @Override
     public Sound selectRecommendTimeWeather(Sound sound) {
         // ~ 해당 시간, 날씨에 많은 노래를 추천해준다.
-        Integer pn = getSqlSession().selectOne("sound.selectMaxCountWeatherTime", sound);
+        Sound getSound = getSqlSession().selectOne("sound.selectMaxCountWeatherTime", sound);
         // ~ 정보가 없을 경우 시간에 대한 노래를 추천한다.
-        if (pn == null || pn.equals(0)){
-            pn = getSqlSession().selectOne("sound.selectMaxCountTime", sound);
+        if (getSound == null || getSound.getPn() == null || getSound.getPn().equals(0)){
+            getSound = getSqlSession().selectOne("sound.selectMaxCountTime", sound);
         }
         // ~ 다시 정보가 없을 경우 해당 노래가 없을 경우 전체 노래에 대한 노래를 추천한다.
-        if( pn == null || pn.equals(0) ){
-            pn = getSqlSession().selectOne("sound.selectMaxCountAll", sound);
+        if (getSound == null || getSound.getPn() == null || getSound.getPn().equals(0)){
+            getSound = getSqlSession().selectOne("sound.selectMaxCountAll.", sound);
         }
-        return getSqlSession().selectOne("sound.selectOne", pn);
+
+        if (getSound == null || getSound.getPn() == null || getSound.getPn().equals(0)){
+            Sound returnSound = new Sound();
+            returnSound.setArtist("GOD");
+            returnSound.setTitle("거짓말");
+            return returnSound;
+        }
+        
+        return getSqlSession().selectOne("sound.selectOne", getSound.getPn());
     }
 
     private int selectCountSounds(SoundFilter soundFilter) {

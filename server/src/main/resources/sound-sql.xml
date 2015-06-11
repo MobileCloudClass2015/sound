@@ -87,4 +87,70 @@
         LIMIT #{pagination.itemSeqBegin}, #{pagination.numItemsPerPage}
     </select>
     
+    <select id="selectMaxCountWeatherTime" parameterType="Sound" resultType="Sound">
+        SELECT
+            `soundPn` AS `pn`, COUNT(`soundPn`) AS `count`
+        FROM
+            `sound_time_stamp` AS sts,
+            `sound` AS s
+        WHERE
+            `sts`.`soundPn` = s.`pn`
+        AND
+            `id` = #{id}
+        AND
+            DATE_FORMAT(`timeStamp`, '%H') = DATE_FORMAT(NOW(), '%H')
+        AND
+            `weatherMain` = #{weatherMain}
+        GROUP BY
+            `soundPn`
+        ORDER BY
+            `count` DESC
+        LIMIT 0, 1
+    </select>
+    
+    <select id="selectMaxCountTime" parameterType="Sound" resultType="Sound">
+        SELECT
+            `soundPn` AS `pn`, COUNT(`soundPn`) AS `count`
+        FROM
+            `sound_time_stamp` AS sts,
+            `sound` AS s
+        WHERE
+            `sts`.`soundPn` = s.`pn`
+        AND
+            `id` = #{id}
+        AND
+            DATE_FORMAT(`timeStamp`, '%H') = DATE_FORMAT(NOW(), '%H')
+        GROUP BY
+            `soundPn`
+        ORDER BY
+            `count` DESC
+        LIMIT 0, 1
+    </select>
+
+    <select id="selectMaxCountAll" parameterType="Sound" resultType="Sound">
+        SELECT
+            `soundPn` AS `pn`, COUNT(`soundPn`) AS `count`
+        F ROM
+            `sound_time_stamp` AS sts,
+            `sound` AS s
+        WHERE
+            `sts`.`soundPn` = s.`pn`
+        AND
+            `id` = #{id}
+        GROUP BY
+            `soundPn`
+        ORDER BY
+           `count` DESC
+        LIMIT 0, 1
+    </select>
+    
+    <select id="selectOne" parameterType="Integer" resultType="Sound">
+        SELECT
+            `pn`, `artist`, `title`
+        FROM
+            `sound`
+        WHERE
+            `pn` = #{value}
+    </select>
+    
 </mapper>
