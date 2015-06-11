@@ -53,7 +53,7 @@ public class WeatherAsyncTask extends AsyncTask<Void, Void, Weather> {
             JsonPrimitive description = weather.getAsJsonPrimitive("description");
             JsonPrimitive icon = weather.getAsJsonPrimitive("icon");
             image = weatherHttpClient.getImage(icon.toString());
-            return new Weather(main.toString(), description.toString(), icon.toString());
+            return new Weather(main.getAsString(), description.getAsString(), icon.getAsString());
         }
 
         return null;
