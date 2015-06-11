@@ -40,6 +40,21 @@ public class SoundServiceImpl extends SqlSessionDaoSupport implements SoundServi
         return getSqlSession().selectList("sound.selectSounds", soundFilter);
     }
 
+    @Override
+    public Sound selectRecommendTimeWeather(Sound sound) {
+        // ~ 해당 시간, 날씨에 많은 노래를 추천해준다.
+        Integer pn = getSqlSession().selectOne("sound.selectMaxCountWeatherTime", sound);
+        // ~ 정보가 없을 경우 시간에 대한 노래를 추천한다.
+        if (pn == null || pn.equals(0)){
+            pn = getSqlSession().selectOne("sound.selectMaxCountTime", sound);
+        }
+        // ~ 다시 정보가 없을 경우 해당 노래가 없을 경우 전체 노래에 대한 노래를 추천한다.
+        if( pn == null || pn.equals(0) ){
+            pn = getSqlSession().selectOne("sound.selectMaxCountAll", sound);
+        }
+        return getSqlSession().selectOne("sound.selectOne", pn);
+    }
+
     private int selectCountSounds(SoundFilter soundFilter) {
         return getSqlSession().selectOne("sound.selectCountSounds",soundFilter);
     }

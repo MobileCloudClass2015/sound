@@ -12,4 +12,6 @@ public interface SoundService {
     List<Sound> selectMaxCountSound(String id);
 
     List<Sound> selectSounds(SoundFilter soundFilter);
+
+    Sound selectRecommendTimeWeather(Sound sound);
 }

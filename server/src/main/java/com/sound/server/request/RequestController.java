@@ -49,7 +49,7 @@ public class RequestController {
         response.put("tracks", requestService.makeRecommendTextResultToObject(line));
         return response;
     }
-
+    
     @ResponseBody
     @RequestMapping(value = "/recommendList", method = RequestMethod.POST)
     public RecommendMap recommendList(@RequestBody Search search) throws Exception {
@@ -89,6 +89,19 @@ public class RequestController {
         myPlayMap.setResult(true);
         return myPlayMap;
     }
-
+    
+    @ResponseBody
+    @RequestMapping(value = "/recommend/time/weather", method = RequestMethod.POST)
+    public MyPlayMap recommendTimeWeather(@RequestBody Sound sound) throws Exception{
+        Sound getSound = soundService.selectRecommendTimeWeather(sound);
+        MyPlayMap myPlayMap = new MyPlayMap();
+        if(getSound != null){
+            RecommendMap recommendMap = selectRecommendMap(new Search(getSound.getArtist(), getSound.getTitle()));
+            myPlayMap.setTrack(recommendMap.getTrack());
+            myPlayMap.setTracks(recommendMap.getTracks());
+        }
+        myPlayMap.setResult(true);
+        return myPlayMap;
+    }
 
 }

@@ -61,8 +61,9 @@ $(function(){
             var ul = $('#bonacell_search_recommend_result');
 
             ul.html('');
+            console.log(tracks, trackLi);
             var trackLi = $('<li>');
-            trackLi.html(track.title + ' ' + track.track_id +' <a href="'+track.url+'">YouTube</a>');
+            trackLi.html(track.title + ' ' + track.trackId +' <a href="'+track.url+'">YouTube</a>');
             trackLi.addClass('highlight');
             ul.append(trackLi);
             
@@ -70,7 +71,7 @@ $(function(){
                 var li = $('<li>');
                 track = tracks[i];
                 
-                li.html(track.title + ' ' + track.track_id + ' '+track.score +' <a href="'+track.url+'">YouTube</a>');
+                li.html(track.title + ' ' + track.trackId + ' '+track.score +' <a href="'+track.url+'">YouTube</a>');
                 ul.append(li);
             }
         });

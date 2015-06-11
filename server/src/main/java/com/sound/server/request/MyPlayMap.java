@@ -19,17 +19,16 @@ public class MyPlayMap {
 
     public MyPlayMap() {
     }
-
+    public MyPlayMap(List<Sound> sounds) {
+        this.sounds = sounds;
+    }
+    
     public Boolean getResult() {
         return result;
     }
 
     public void setResult(Boolean result) {
         this.result = result;
-    }
-
-    public MyPlayMap(List<Sound> sounds) {
-        this.sounds = sounds;
     }
 
     public List<Sound> getSounds() {
