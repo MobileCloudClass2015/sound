@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
+import android.os.Message;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -12,6 +13,11 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonPrimitive;
+
+import java.io.InputStream;
+import java.net.URL;
+import android.os.Handler;
+import android.widget.Toast;
 
 
 /**
@@ -24,7 +30,7 @@ public class WeatherAsyncTask extends AsyncTask<Void, Void, Weather> {
     private GpsLocationInfo gpsLocationInfo;
     private Context context;
     ImageView weatherimg;
-    Bitmap bitmap;
+    String imgUrl;
     TextView weatherinfo;
     TextView weatherDescription;
     String weatherMain;
@@ -68,13 +74,40 @@ public class WeatherAsyncTask extends AsyncTask<Void, Void, Weather> {
         Log.d(TAG, getWeather.toString());
         if (image.length > 0) {
                 // ~ TODO
-            this.bitmap= BitmapFactory.decodeByteArray(image, 0, image.length);
-            this.weatherimg.setImageBitmap(bitmap);
+            imgUrl="http://openweathermap.org/img/w/"+getWeather.getIcon()+".png".replace("\"","");
+            (new DownThread(imgUrl)).start();
         }
         if(getWeather != null) {
             this.weatherMain += getWeather.getMain();
-            this.weatherinfo.setText(getWeather.getMain());
+            this.weatherinfo.setText(getWeather.getMain()+getWeather.getIcon());
             this.weatherDescription.setText(getWeather.getDescription());
         }
     }
+    class DownThread extends Thread {
+        String mAddr;
+
+        DownThread(String addr) {
+            mAddr=addr;
+        }
+
+        public void run() {
+            try {
+                InputStream is = new URL(mAddr).openStream();
+                Bitmap bit = BitmapFactory.decodeStream(is);
+                is.close();
+                Message message = mAfterDown.obtainMessage();
+                message.obj = bit;
+                mAfterDown.sendMessage(message);
+            } catch (Exception e) {;}
+            }
+        }
+    Handler mAfterDown = new Handler() {
+        public void handleMessage(Message msg) {
+            Bitmap bit=(Bitmap)msg.obj;
+            if(bit==null) {
+            } else {
+                weatherimg.setImageBitmap(bit);
+            }
+        }
+    };
 }
