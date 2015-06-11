@@ -93,6 +93,7 @@ public class RequestController {
     @ResponseBody
     @RequestMapping(value = "/recommend/time/weather", method = RequestMethod.POST)
     public MyPlayMap recommendTimeWeather(@RequestBody Sound sound) throws Exception{
+        logger.debug(sound.toString());
         Sound getSound = soundService.selectRecommendTimeWeather(sound);
         MyPlayMap myPlayMap = new MyPlayMap();
         if(getSound != null){

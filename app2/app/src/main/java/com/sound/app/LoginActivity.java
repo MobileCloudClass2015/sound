@@ -11,12 +11,14 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.cocosw.bottomsheet.BottomSheet;
 import com.kure.musicplayer.activities.ActivityMenuMain;
 import com.sound.app.recommend.MyListAsyncTask;
 import com.sound.app.util.BackPressCloseHandler;
 import com.sound.app.weather.GpsLocationInfo;
+import com.sound.app.weather.Weather;
 import com.sound.app.weather.WeatherAsyncTask;
 import com.sound.app.youtube.VideoListDemoActivity;
 
@@ -33,6 +35,7 @@ public class LoginActivity extends Activity {
     private TextView weatherinfo;
     private TextView weatherDescription;
     private ListView listView;
+    private Weather weather = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +70,12 @@ public class LoginActivity extends Activity {
         this.youtubeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(weather == null){
+                    Toast.makeText(LoginActivity.this, "Weather information has been received. Please wait.", Toast.LENGTH_SHORT);
+                    return;
+                }
                 Intent intent = new Intent(LoginActivity.this, VideoListDemoActivity.class);
+                intent.putExtra("weatherMain", weather.getMain());
                 startActivity(intent);
             }
         });
@@ -79,7 +87,7 @@ public class LoginActivity extends Activity {
         imgview=(ImageView)findViewById(R.id.weatherimg);
         weatherinfo=(TextView)findViewById(R.id.weatherinfo);
         weatherDescription = (TextView) findViewById(R.id.weatherDescription);
-        new WeatherAsyncTask(getApplicationContext(), this.gpsLocationInfo, this.imgview, this.weatherinfo, this.weatherDescription).execute();
+        new WeatherAsyncTask(getApplicationContext(), this.gpsLocationInfo, this.imgview, this.weatherinfo, this.weatherDescription, this.weather).execute();
 
 
 
