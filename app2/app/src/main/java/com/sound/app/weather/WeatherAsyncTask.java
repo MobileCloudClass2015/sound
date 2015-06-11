@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
+import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.widget.ImageView;
@@ -16,8 +17,6 @@ import com.google.gson.JsonPrimitive;
 
 import java.io.InputStream;
 import java.net.URL;
-import android.os.Handler;
-import android.widget.Toast;
 
 
 /**
@@ -74,12 +73,12 @@ public class WeatherAsyncTask extends AsyncTask<Void, Void, Weather> {
         Log.d(TAG, getWeather.toString());
         if (image.length > 0) {
                 // ~ TODO
-            imgUrl="http://openweathermap.org/img/w/"+getWeather.getIcon()+".png".replace("\"","");
+            imgUrl="http://openweathermap.org/img/w/"+getWeather.getIcon()+".png";
             (new DownThread(imgUrl)).start();
         }
         if(getWeather != null) {
             this.weatherMain += getWeather.getMain();
-            this.weatherinfo.setText(getWeather.getMain()+getWeather.getIcon());
+            this.weatherinfo.setText(getWeather.getMain());
             this.weatherDescription.setText(getWeather.getDescription());
         }
     }
