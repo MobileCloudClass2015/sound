@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -35,7 +36,7 @@ public class LoginActivity extends Activity {
     private TextView weatherinfo;
     private TextView weatherDescription;
     private ListView listView;
-    private Weather weather = null;
+    private String weatherMain = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,13 +71,15 @@ public class LoginActivity extends Activity {
         this.youtubeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(weather == null){
-                    Toast.makeText(LoginActivity.this, "Weather information has been received. Please wait.", Toast.LENGTH_SHORT);
-                    return;
+                String text = weatherinfo.getText().toString();
+                Log.d(TAG, text);
+                if(text.equals("Main Weather")){
+                    Toast.makeText(LoginActivity.this, "Weather information has been received. Please wait.", Toast.LENGTH_SHORT).show();
+                }else {
+                    Intent intent = new Intent(LoginActivity.this, VideoListDemoActivity.class);
+                    intent.putExtra("weatherMain", text.replaceAll("\"", ""));
+                    startActivity(intent);
                 }
-                Intent intent = new Intent(LoginActivity.this, VideoListDemoActivity.class);
-                intent.putExtra("weatherMain", weather.getMain());
-                startActivity(intent);
             }
         });
 
@@ -87,7 +90,7 @@ public class LoginActivity extends Activity {
         imgview=(ImageView)findViewById(R.id.weatherimg);
         weatherinfo=(TextView)findViewById(R.id.weatherinfo);
         weatherDescription = (TextView) findViewById(R.id.weatherDescription);
-        new WeatherAsyncTask(getApplicationContext(), this.gpsLocationInfo, this.imgview, this.weatherinfo, this.weatherDescription, this.weather).execute();
+        new WeatherAsyncTask(getApplicationContext(), this.gpsLocationInfo, this.imgview, this.weatherinfo, this.weatherDescription, this.weatherMain).execute();
 
 
 

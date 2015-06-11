@@ -53,6 +53,7 @@ import com.google.android.youtube.player.YouTubeThumbnailView;
 import com.sound.app.R;
 import com.sound.app.common.App;
 import com.sound.app.dto.MyPlayMap;
+import com.sound.app.dto.Sound;
 import com.sound.app.dto.Track;
 
 import org.springframework.http.ResponseEntity;
@@ -94,9 +95,15 @@ public final class VideoListDemoActivity extends Activity implements OnFullscree
 
   private boolean isFullscreen;
 
+  private static String weatherMain = "";
+
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+
+      Intent intent = getIntent();
+      weatherMain = intent.getExtras().getString("weatherMain");
+      Log.d("VideoListDemoActivity", weatherMain);
 
     setContentView(R.layout.video_list_demo);
 
@@ -216,18 +223,6 @@ public final class VideoListDemoActivity extends Activity implements OnFullscree
 
     private static List<VideoEntry> videoEntryList= new ArrayList<>();
 
-//      static {
-//          List<VideoEntry> list = new ArrayList<VideoEntry>();
-//          list.add(new VideoEntry("YouTube Collection", "Y_UmWdcTrrc"));
-//          list.add(new VideoEntry("GMail Tap", "1KhZKNZO8mQ"));
-//          list.add(new VideoEntry("Chrome Multitask", "UiLSiqyDf4Y"));
-//          list.add(new VideoEntry("Google Fiber", "re0VRK6ouwI"));
-//          list.add(new VideoEntry("Autocompleter", "blB_X38YSxQ"));
-//          list.add(new VideoEntry("GMail Motion", "Bu927_ul_X0"));
-//          list.add(new VideoEntry("Translate for Animals", "3I24bSteJpw"));
-//          videoEntryList = Collections.unmodifiableList(list);
-//      }
-
     private PageAdapter adapter;
     private View videoBox;
 
@@ -288,16 +283,24 @@ public final class VideoListDemoActivity extends Activity implements OnFullscree
           @Override
           protected MyPlayMap doInBackground(Void... params) {
 
+
+
               SharedPreferences pref = App.app_context.getSharedPreferences("userInfo", 0);
               String id = pref.getString("id", "");
-              String url = App.app_context.getString(R.string.contextPath) + "/recommend/myList/"+id;
+
+              Sound sound = new Sound();
+              sound.setId(id);
+              sound.setWeatherMain(weatherMain);
+              Log.d(TAG, sound.toString());
+
+              String url = App.app_context.getString(R.string.contextPath) + "/recommend/time/weather";
 
               Boolean isSuccess = false;
               MyPlayMap myPlayMap =  null;
               try {
                   while (!isSuccess) {
                       try {
-                          myPlayMap = postTemplate(url);
+                          myPlayMap = postTemplate(url, sound);
                           if (myPlayMap.getResult()) {
                               isSuccess = true;
                           }
@@ -313,9 +316,9 @@ public final class VideoListDemoActivity extends Activity implements OnFullscree
               return myPlayMap;
           }
 
-          private MyPlayMap postTemplate(String url){
+          private MyPlayMap postTemplate(String url, Sound sound){
               RestTemplate restTemplate = new RestTemplate();
-              ResponseEntity<MyPlayMap> responseEntity = restTemplate.postForEntity(url, null, MyPlayMap.class);
+              ResponseEntity<MyPlayMap> responseEntity = restTemplate.postForEntity(url, sound, MyPlayMap.class);
               return responseEntity.getBody();
           }
 
